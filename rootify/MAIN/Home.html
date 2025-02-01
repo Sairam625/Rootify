@@ -403,6 +403,7 @@
             max-width: 1400px;
             margin: 2rem auto;
             padding: 0 2rem;
+            margin-top: 2rem;
         }
 
         .hero-titles {
@@ -539,14 +540,112 @@
                 font-size: 1rem;
             }
         }
+
+        .weather-box {
+            margin: 1.5rem auto;
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1rem;
+            width: 80%;
+            max-width: 800px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Add dynamic background icon */
+        .weather-box .background-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 4rem;
+            opacity: 0.8;
+            z-index: 0;
+        }
+
+        .weather-widget {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            color: #ffffff;
+            position: relative;
+            z-index: 1;
+            padding-left: 6rem;
+        }
+
+        /* Update weather icon colors */
+        .fa-sun { 
+            background: linear-gradient(45deg, #ffd700, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .fa-cloud { 
+            background: linear-gradient(45deg, #b0c4de, #4682b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .fa-cloud-rain { 
+            background: linear-gradient(45deg, #4682b4, #00008b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .fa-cloud-bolt { 
+            background: linear-gradient(45deg, #daa520, #ff4500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .fa-snowflake { 
+            background: linear-gradient(45deg, #f0f8ff, #87ceeb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Update text sizes */
+        #greeting {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        #weather-details {
+            font-size: 1.1rem;
+        }
+
+        /* Update mobile responsiveness */
+        @media (max-width: 768px) {
+            .weather-box {
+                width: 90%;
+                padding: 1rem;
+            }
+
+            .weather-widget {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .weather-icon {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                padding-bottom: 1rem;
+            }
+
+            .weather-info {
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
         <h1><span class="leaf-icon">🌾</span>Rootify</h1>
         <div class="tagline">
-          
-            <span class="english-text">Grounded Solutions For Farmers</span>
+            <div class="hindi-text">किसान की उन्नति, देश की प्रगति</div>
+            <div class="english-text">Farmer's Progress, Nation's Growth</div>
         </div>
     </header>
 
@@ -576,6 +675,18 @@
         <div class="hero-titles">
             <h1 class="main-title">Empowering Indian Agriculture</h1>
             <div class="sub-title">समृद्ध किसान, समृद्ध भारत</div>
+            <div class="weather-box">
+                <i class="fas background-icon"></i>
+                <div class="weather-widget">
+                    <div class="weather-icon">
+                        <i id="weather-icon" class="fas"></i>
+                    </div>
+                    <div class="weather-info">
+                        <div id="greeting">Good Morning!</div>
+                        <div id="weather-details">Loading...</div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div class="image-grid">
@@ -705,6 +816,22 @@
             <h2>Crop Yield</h2>
             <p>Checkout the requirements to grow the crops.</p>
         </a>
+
+        <a href="stores.html" class="block">
+            <div class="block-icon store-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h2>Nearby Stores</h2>
+            <p>Find agricultural stores and equipment near you</p>
+        </a>
+
+        <a href="news.html" class="block">
+            <div class="block-icon news-icon">
+                <i class="fas fa-globe"></i>
+            </div>
+            <h2>News & Updates</h2>
+            <p>Latest agricultural news and global market insights</p>
+        </a>
     </div>
 
     <script>
@@ -746,5 +873,66 @@
             <p>&copy; 2024 Rootify. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        function getWeatherIcon(weatherCode) {
+            const weatherIcons = {
+                '01d': 'fa-sun',
+                '01n': 'fa-moon',
+                '02d': 'fa-cloud-sun',
+                '02n': 'fa-cloud-moon',
+                '03d': 'fa-cloud',
+                '03n': 'fa-cloud',
+                '04d': 'fa-cloud',
+                '04n': 'fa-cloud',
+                '09d': 'fa-cloud-rain',
+                '09n': 'fa-cloud-rain',
+                '10d': 'fa-cloud-sun-rain',
+                '10n': 'fa-cloud-moon-rain',
+                '11d': 'fa-cloud-bolt',
+                '11n': 'fa-cloud-bolt',
+                '13d': 'fa-snowflake',
+                '13n': 'fa-snowflake',
+                '50d': 'fa-smog',
+                '50n': 'fa-smog'
+            };
+            return weatherIcons[weatherCode] || 'fa-sun';
+        }
+
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            const greeting = document.getElementById('greeting');
+            
+            if (hour >= 5 && hour < 12) {
+                greeting.textContent = 'Good Morning!';
+            } else if (hour >= 12 && hour < 17) {
+                greeting.textContent = 'Good Afternoon!';
+            } else if (hour >= 17 && hour < 22) {
+                greeting.textContent = 'Good Evening!';
+            } else {
+                greeting.textContent = 'Good Night!';
+            }
+        }
+
+        function displayWeather(data) {
+            const weatherIcon = document.getElementById('weather-icon');
+            const weatherDetails = document.getElementById('weather-details');
+            const iconClass = getWeatherIcon(data.weather[0].icon);
+            
+            weatherIcon.className = 'fas ' + iconClass;
+            
+            // Update both icons with the same weather class
+            const backgroundIcon = document.querySelector('.weather-box .background-icon');
+            backgroundIcon.className = 'fas ' + iconClass + ' background-icon';
+            
+            weatherDetails.innerHTML = `${Math.round(data.main.temp)}°C, ${data.weather[0].description}`;
+            updateGreeting();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateGreeting();
+            setInterval(updateGreeting, 60000);
+        });
+    </script>
 </body>
 </html>
