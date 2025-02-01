@@ -23,7 +23,93 @@
             box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
+        .footer {
+            background: linear-gradient(to right, var(--primary-dark, #1b5e20), var(--primary, #2e7d32));
+            color: #ffffff;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
 
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 4rem;
+            padding: 0 2rem;
+        }
+
+        .footer-description {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .footer-description h3 {
+            color: #81c784;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description p {
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .social-links h3 {
+            color: #81c784;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-3px);
+            background: #81c784;
+            color: #1b5e20;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .social-links, .footer-description {
+                max-width: 100%;
+            }
+        }
         body {
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
                 url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1');
@@ -58,32 +144,61 @@
             background: rgba(255, 255, 255, 0.1);
             transform: translateY(-2px);
         }
+
         .navbar a.active {
-            background-color: #4CAF50;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            background: var(--primary-light);
+            box-shadow: var(--shadow);
         }
 
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .navbar {
-                flex-wrap: wrap;
-                gap: 0.5rem;
-            }
-        }
-        header {
-            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+        .main-header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--primary-light));
             color: var(--text-light);
-            padding: 2rem;
+            padding: 3rem 1rem;
             text-align: center;
             margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef') center/cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header-content p {
+            font-size: 1.2rem;
+            color: #e8f5e9;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .header-decoration {
+            margin-top: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        .leaf-icon {
+            font-size: 2rem;
+            margin: 0 0.5rem;
+            display: inline-block;
         }
 
         .container {
@@ -200,133 +315,119 @@
         }
 
         .state-selector {
-            display: flex;
-            justify-content: center;
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
             margin: 2rem 0;
-        }
-        #google_translate_element {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            z-index: 1001;
-        }
-        body {
-            top: 0 !important;
-        }
-        .footer {
-            background: linear-gradient(to right, var(--primary-dark, #1b5e20), var(--primary, #2e7d32));
-            color: #ffffff;
-            padding: 3rem 0;
-            margin-top: 4rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            gap: 4rem;
-            padding: 0 2rem;
+        .state-selector-header {
+            margin-bottom: 2rem;
         }
 
-        .footer-description {
-            flex: 1;
-            max-width: 600px;
-        }
-
-        .footer-description h3 {
-            color: #81c784;
-            font-size: 1.5rem;
+        .state-selector h2 {
+            color: #e8f5e9;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
-        .footer-description p {
-            line-height: 1.6;
-            opacity: 0.9;
-            margin-bottom: 1rem;
-        }
-
-        .social-links {
-            flex: 1;
-            max-width: 400px;
-        }
-
-        .social-links h3 {
-            color: #81c784;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .social-icons a {
-            color: #ffffff;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
+        .selector-decoration {
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 1.5rem 0;
         }
 
-        .social-icons a:hover {
-            transform: translateY(-3px);
-            background: #81c784;
-            color: #1b5e20;
+        .selector-decoration .line {
+            height: 2px;
+            width: 100px;
+            background: linear-gradient(to right, transparent, var(--primary-light), transparent);
         }
 
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .selector-decoration i {
+            color: var(--primary-light);
+            font-size: 1.5rem;
+            margin: 0 1rem;
+            animation: pulse 2s infinite;
         }
 
-        @media (max-width: 768px) {
-            .footer-content {
-                flex-direction: column;
-                gap: 2rem;
-            }
-
-            .social-links, .footer-description {
-                max-width: 100%;
-            }
-        }
-        .state-selector select {
-            width: 350px;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            background: var(--card-bg);
-            color: var(--text-dark);
-            border: 2px solid var(--primary);
+        .selector-subtitle {
+            color: #a5d6a7;
             font-size: 1.1rem;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+            font-style: italic;
         }
 
-        .state-selector select:hover {
+        #stateSelect {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            width: 300px;
+            max-width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2em;
+        }
+
+        #stateSelect:hover {
+            background-color: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
         }
 
-        .state-selector select option {
-            background: var(--card-bg);
-            color: var(--text-dark);
-            padding: 8px 12px;
+        #stateSelect:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--primary-light);
         }
 
-        .state-selector select option[value="Andaman and Nicobar Islands"] {
-            border-top: 1px solid var(--primary);
-            margin-top: 8px;
-            padding-top: 8px;
+        #stateSelect option {
+            background-color: #1b5e20;
+            color: white;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .state-selector h2 {
+                font-size: 2rem;
+            }
+
+            .selector-decoration .line {
+                width: 60px;
+            }
+
+            #stateSelect {
+                width: 100%;
+            }
         }
 
         .loading {
@@ -366,44 +467,375 @@
             .container {
                 padding: 0 1rem;
             }
+        }
 
-            .state-selector select {
-                width: 90%;
+        .market-overview {
+            display: grid;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .market-image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .market-image-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .market-image-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .market-image-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .market-image-card h3 {
+            padding: 1rem;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .price-comparison {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .price-comparison h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .comparison-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .price-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 0.5rem 0;
+        }
+
+        .market-highlights {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .highlight-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: var(--shadow);
+        }
+
+        .highlight-card img {
+            width: 200px;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .highlight-content {
+            padding: 1.5rem;
+            flex: 1;
+        }
+
+        .highlight-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .highlight-content ul {
+            list-style: none;
+        }
+
+        .highlight-content li {
+            margin: 0.5rem 0;
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 768px) {
+            .market-image-grid,
+            .comparison-grid {
+                grid-template-columns: 1fr;
             }
+
+            .highlight-card {
+                flex-direction: column;
+            }
+
+            .highlight-card img {
+                width: 100%;
+                height: 200px;
+            }
+        }
+
+        
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .analytics-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+            backdrop-filter: blur(5px);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .analytics-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .analytics-value {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 1rem 0;
+            background: linear-gradient(45deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .analytics-subtext {
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .insight-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .insight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .insight-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .insight-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .insight-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .insight-card p {
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .trend-stable {
+            color: #ffa000;
+        }
+
+        @media (max-width: 768px) {
+            .analytics-grid,
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading Animation Enhancement */
+        .loading::after {
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            border: none;
+            animation: spin 1s linear infinite, colorChange 2s infinite;
+        }
+
+        @keyframes colorChange {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .market-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .market-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .price-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0;
+        }
+
+        .positive { color: #4caf50; }
+        .negative { color: #f44336; }
+
+        .graph-container {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            height: 400px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .graph-container canvas {
+            width: 100% !important;
+            height: 100% !important;
         }
     </style>
 </head>
 <body>
-    <div id="google_translate_element"></div>
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'hi,mr,kn,ta,te,ml,gu,bn,pa,ur,or,as,en',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-    </script>
-
     <nav class="navbar">
         <a href="Home.html">Home</a>
         <a href="Loans.html">Loans</a>
         <a href="marketTrends.html" class="active">Market Trends</a>
-        <a href="DiasaterManagement.html">Claims</a>
+        <a href="DisasterManagement.html">Disaster Management</a>
         <a href="Contactus.html">Contact</a>
-        <a href="Login.html">Login/Signup</a>
     </nav>
 
-    <header>
-        <h1>Agricultural Market Trends</h1>
-        <p>Stay updated with current market trends and rates</p>
+    <header class="main-header">
+        <div class="header-content">
+            <h1>Agricultural Market Trends</h1>
+            <p>Real-time market insights for farmers across India</p>
+            <div class="header-decoration">
+                <span class="leaf-icon">🌿</span>   
+            </div>
+        </div>
     </header>
 
     <div class="container">
         <div class="state-selector">
-            <select id="stateSelect" onchange="updateStateRates()">
-                <option value="">Select State</option>
+            <div class="state-selector-header">
+                <h2>State-wise Market Analysis</h2>
+                <div class="selector-decoration">
+                    <span class="line"></span>
+                    <i class="fas fa-chart-line"></i>
+                    <span class="line"></span>
+                </div>
+                <p class="selector-subtitle">Select a state to view detailed market information</p>
+            </div>
+            <select id="stateSelect" onchange="updateStateData()">
+                <option value="">Choose State</option>
                 <option value="Andhra Pradesh">Andhra Pradesh</option>
                 <option value="Arunachal Pradesh">Arunachal Pradesh</option>
                 <option value="Assam">Assam</option>
@@ -432,153 +864,162 @@
                 <option value="Uttar Pradesh">Uttar Pradesh</option>
                 <option value="Uttarakhand">Uttarakhand</option>
                 <option value="West Bengal">West Bengal</option>
-                <!-- Union Territories -->
-                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                <option value="Chandigarh">Chandigarh</option>
-                <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
-                <option value="Daman and Diu">Daman and Diu</option>
-                <option value="Delhi">Delhi</option>
-                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                <option value="Ladakh">Ladakh</option>
-                <option value="Lakshadweep">Lakshadweep</option>
-                <option value="Puducherry">Puducherry</option>
             </select>
         </div>
 
-        <div id="stateAnalysis" class="hidden">
-            <div class="graph-container">
-                <canvas id="priceChart"></canvas>
-            </div>
-            <div class="market-summary">
-                <div class="summary-card">
-                    <h3>Average Price Change</h3>
-                    <div class="summary-value" id="avgPriceChange">+8.5%</div>
-                </div>
-                <div class="summary-card">
-                    <h3>Trading Volume</h3>
-                    <div class="summary-value" id="tradingVolume">₹82.5Cr</div>
-                </div>
-                <div class="summary-card">
-                    <h3>Market Status</h3>
-                    <div class="summary-value" id="marketStatus">Active</div>
-                </div>
-            </div>
+        <!-- Add this after the state selector -->
+        <div id="graphContainer" class="graph-container hidden">
+            <canvas id="priceChart"></canvas>
         </div>
 
-        <div id="stateRatesContent" class="market-grid hidden">
-            <!-- Content will be populated by JavaScript -->
+        <!-- State Analysis (shown after selection) -->
+        <div id="stateAnalysis" class="hidden">
+            <!-- State content will be loaded here -->
         </div>
     </div>
 
     <script>
-        function updateStateRates() {
-            const stateSelect = document.getElementById('stateSelect');
-            const stateRatesContent = document.getElementById('stateRatesContent');
-            const stateAnalysis = document.getElementById('stateAnalysis');
-            const selectedState = stateSelect.value;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show initial national data
+            showNationalData();
+            
+            // Add event listener for state selection
+            document.getElementById('stateSelect').addEventListener('change', updateStateData);
+        });
 
-            if (!selectedState) {
-                stateRatesContent.classList.add('hidden');
+        function showNationalData() {
+            const nationalData = {
+                majorCrops: [
+                    { name: 'Wheat', price: '2,450', change: '+3.2', volume: '12,450' },
+                    { name: 'Rice', price: '3,280', change: '-1.5', volume: '15,800' },
+                    { name: 'Pulses', price: '8,450', change: '+2.8', volume: '5,620' }
+                ],
+                marketInsights: [
+                    { title: 'Active Markets', value: '2,845', subtext: 'Across India' },
+                    { title: 'Total Volume', value: '₹12,450 Cr', subtext: 'Daily Trading' },
+                    { title: 'Price Trend', value: 'Stable', subtext: 'Weekly Analysis' }
+                ]
+            };
+
+            const html = `
+                <div class="national-overview">
+                    <h2>National Market Overview</h2>
+                    <div class="market-grid">
+                        ${nationalData.majorCrops.map(crop => `
+                            <div class="market-card">
+                                <img src="https://source.unsplash.com/400x300/?${crop.name.toLowerCase()},agriculture" alt="${crop.name}">
+                                <div class="card-content">
+                                    <h3>${crop.name}</h3>
+                                    <div class="price-info">
+                                        <span class="price">₹${crop.price}/q</span>
+                                        <span class="change ${parseFloat(crop.change) > 0 ? 'positive' : 'negative'}">
+                                            ${crop.change}%
+                                        </span>
+                                    </div>
+                                    <div class="volume">Volume: ${crop.volume} MT</div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="insights-grid">
+                        ${nationalData.marketInsights.map(insight => `
+                            <div class="insight-card">
+                                <h3>${insight.title}</h3>
+                                <div class="value">${insight.value}</div>
+                                <div class="subtext">${insight.subtext}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('nationalOverview').innerHTML = html;
+        }
+
+        let priceChart = null;
+
+        function updateStateData() {
+            const stateSelect = document.getElementById('stateSelect');
+            const stateAnalysis = document.getElementById('stateAnalysis');
+            
+            if (!stateSelect.value) {
                 stateAnalysis.classList.add('hidden');
                 return;
             }
 
-            stateRatesContent.innerHTML = '<div class="loading">Loading market rates...</div>';
-            stateRatesContent.classList.remove('hidden');
+            // Show loading state
+            stateAnalysis.innerHTML = '<div class="loading">Loading state data...</div>';
             stateAnalysis.classList.remove('hidden');
 
-            const historicalData = generateHistoricalData();
-            updatePriceChart(historicalData, selectedState);
-
+            // Simulate API call delay
             setTimeout(() => {
-                const stateData = generateStateData();
-                updateStateContent(stateData);
-            }, 1000);
+                const data = generateStateData(stateSelect.value);
+                updateStateContent(data);
+            }, 500);
         }
 
-        function generateHistoricalData() {
-            const months = ['January', 'February', 'March', 'April', 'May', 'June'];
-            return {
-                wheat: months.map(() => getRandomPrice(2000, 2500)),
-                rice: months.map(() => getRandomPrice(3000, 3500)),
-                corn: months.map(() => getRandomPrice(1800, 2200))
-            };
-        }
-
-        function updatePriceChart(data, stateName) {
-            const ctx = document.getElementById('priceChart').getContext('2d');
-            
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-                    datasets: [
-                        {
-                            label: 'Wheat (₹/quintal)',
-                            data: data.wheat,
-                            borderColor: '#2e7d32',
-                            backgroundColor: 'rgba(46, 125, 50, 0.1)',
-                            fill: true
-                        },
-                        {
-                            label: 'Rice (₹/quintal)',
-                            data: data.rice,
-                            borderColor: '#1976d2',
-                            backgroundColor: 'rgba(25, 118, 210, 0.1)',
-                            fill: true
-                        },
-                        {
-                            label: 'Corn (₹/quintal)',
-                            data: data.corn,
-                            borderColor: '#ed6c02',
-                            backgroundColor: 'rgba(237, 108, 2, 0.1)',
-                            fill: true
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: `Price Trends in ${stateName}`,
-                            font: { size: 16 }
-                        },
-                        legend: {
-                            position: 'top'
-                        }
+        function generateStateData(state) {
+            const stateSpecificData = {
+                'Karnataka': {
+                    crops: {
+                        ragi: { current: getRandomPrice(2800, 3200), previous: getRandomPrice(2600, 3000) },
+                        arecanut: { current: getRandomPrice(35000, 38000), previous: getRandomPrice(33000, 36000) },
+                        coffee: { current: getRandomPrice(18000, 20000), previous: getRandomPrice(17000, 19000) }
                     },
-                    scales: {
-                        y: {
-                            beginAtZero: false,
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            }
-                        },
-                        x: {
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            }
-                        }
+                    vegetables: {
+                        brinjal: { current: getRandomPrice(25, 35), previous: getRandomPrice(20, 30) },
+                        drumstick: { current: getRandomPrice(45, 55), previous: getRandomPrice(40, 50) },
+                        cucumber: { current: getRandomPrice(20, 30), previous: getRandomPrice(18, 28) }
                     }
-                }
-            });
+                },
+                // Add more state-specific data...
+            };
+
+            // Generate random data for states not explicitly defined
+            if (!stateSpecificData[state]) {
+                return generateRandomStateData(state);
+            }
+
+            return stateSpecificData[state];
         }
 
-        function generateStateData() {
-            return {
-                crops: {
-                    wheat: { current: getRandomPrice(2000, 2500), previous: getRandomPrice(1800, 2300) },
-                    rice: { current: getRandomPrice(3000, 3500), previous: getRandomPrice(2800, 3300) },
-                    corn: { current: getRandomPrice(1800, 2200), previous: getRandomPrice(1600, 2000) }
-                },
-                vegetables: {
-                    tomatoes: { current: getRandomPrice(30, 50), previous: getRandomPrice(25, 45) },
-                    potatoes: { current: getRandomPrice(20, 30), previous: getRandomPrice(15, 25) },
-                    onions: { current: getRandomPrice(25, 35), previous: getRandomPrice(20, 30) }
-                }
+        function generateRandomStateData(state) {
+            const commonCrops = {
+                'Andhra Pradesh': ['paddy', 'groundnut', 'cotton'],
+                'Maharashtra': ['jowar', 'cotton', 'sugarcane'],
+                'Punjab': ['wheat', 'rice', 'cotton'],
+                'Uttar Pradesh': ['wheat', 'sugarcane', 'potato'],
+                'Tamil Nadu': ['paddy', 'sugarcane', 'coconut'],
+                // Add more states...
             };
+
+            const commonVegetables = {
+                'Andhra Pradesh': ['tomato', 'chilli', 'onion'],
+                'Maharashtra': ['onion', 'tomato', 'potato'],
+                'Punjab': ['potato', 'peas', 'carrot'],
+                'Uttar Pradesh': ['potato', 'tomato', 'cauliflower'],
+                'Tamil Nadu': ['tomato', 'brinjal', 'okra'],
+                // Add more states...
+            };
+
+            const crops = {};
+            const vegetables = {};
+
+            (commonCrops[state] || ['wheat', 'rice', 'maize']).forEach(crop => {
+                crops[crop] = {
+                    current: getRandomPrice(2000, 5000),
+                    previous: getRandomPrice(1800, 4800)
+                };
+            });
+
+            (commonVegetables[state] || ['potato', 'onion', 'tomato']).forEach(veg => {
+                vegetables[veg] = {
+                    current: getRandomPrice(20, 60),
+                    previous: getRandomPrice(15, 55)
+                };
+            });
+
+            return { crops, vegetables };
         }
 
         function updateStateContent(data) {
@@ -592,7 +1033,11 @@
                     ${generateRateCards(data.vegetables, 'kg')}
                 </div>
             `;
-            document.getElementById('stateRatesContent').innerHTML = html;
+            document.getElementById('stateAnalysis').innerHTML = html;
+            
+            // Update the graph
+            updatePriceChart(data);
+            document.getElementById('graphContainer').classList.remove('hidden');
         }
 
         function generateRateCards(data, unit) {
@@ -619,39 +1064,115 @@
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
+
+        function updatePriceChart(data) {
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            
+            // Destroy existing chart if it exists
+            if (priceChart) {
+                priceChart.destroy();
+            }
+
+            // Prepare data for the chart
+            const cropLabels = Object.keys(data.crops);
+            const currentPrices = Object.values(data.crops).map(p => p.current);
+            const previousPrices = Object.values(data.crops).map(p => p.previous);
+
+            priceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: cropLabels,
+                    datasets: [
+                        {
+                            label: 'Current Price',
+                            data: currentPrices,
+                            backgroundColor: 'rgba(76, 175, 80, 0.6)',
+                            borderColor: 'rgba(76, 175, 80, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Previous Price',
+                            data: previousPrices,
+                            backgroundColor: 'rgba(33, 150, 243, 0.6)',
+                            borderColor: 'rgba(33, 150, 243, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Price Comparison (₹/quintal)',
+                            color: '#ffffff',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    }
+                }
+            });
+        }
     </script>
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-description">
-                <h3>About Rootify</h3>
-                <p>Rootify is a comprehensive agricultural platform designed to empower farmers with modern solutions. We provide essential services including loan assistance, market trend analysis, and disaster management support.</p>
-                <p>Our mission is to bridge the gap between traditional farming and modern technology, ensuring sustainable agricultural practices and improved farmer welfare.</p>
-            </div>
-            <div class="social-links">
-                <h3>Connect With Us</h3>
-                <p>Follow us on social media for updates, tips, and agricultural insights.</p>
-                <div class="social-icons">
-                    <a href="https://facebook.com/rootify" target="_blank" aria-label="Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://twitter.com/rootify" target="_blank" aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://instagram.com/rootify" target="_blank" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://linkedin.com/company/rootify" target="_blank" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://youtube.com/rootify" target="_blank" aria-label="YouTube">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                </div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-description">
+            <h3>About Rootify</h3>
+            <p>Rootify is a comprehensive agricultural platform designed to empower farmers with modern solutions. We provide essential services including loan assistance, market trend analysis, and disaster management support.</p>
+            <p>Our mission is to bridge the gap between traditional farming and modern technology, ensuring sustainable agricultural practices and improved farmer welfare.</p>
+        </div>
+        <div class="social-links">
+            <h3>Connect With Us</h3>
+            <p>Follow us on social media for updates, tips, and agricultural insights.</p>
+            <div class="social-icons">
+                <a href="https://facebook.com/rootify" target="_blank" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://twitter.com/rootify" target="_blank" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://instagram.com/rootify" target="_blank" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://linkedin.com/company/rootify" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://youtube.com/rootify" target="_blank" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Rootify. All rights reserved.</p>
-        </div>
-    </footer>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Rootify. All rights reserved.</p>
+    </div>
+</footer>
 </body>
 </html>
