@@ -1,2 +1,0 @@
-# Rootify
-farmers assistance 

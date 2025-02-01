@@ -322,18 +322,22 @@
         </div>
 
         <div class="form-container" id="signup-form">
-            <form onsubmit="handleSignup(event)">
+            <form id="signupForm" target="_blank">
                 <div class="input-group">
                     <label for="signup-name">Full Name</label>
-                    <input type="text" id="signup-name" required placeholder="Enter your full name">
+                    <input type="text" id="signup-name" name="entry.428030285" required 
+                        placeholder="Enter your full name">
                 </div>
                 <div class="input-group">
                     <label for="signup-phone">Phone Number</label>
-                    <input type="tel" id="signup-phone" pattern="[0-9]{10}" required placeholder="Enter your phone number">
+                    <input type="tel" id="signup-phone" name="entry.523102069" 
+                        pattern="[0-9]{10}" required 
+                        placeholder="Enter your phone number">
                 </div>
                 <div class="input-group">
                     <label for="signup-password">Password</label>
-                    <input type="password" id="signup-password" required placeholder="Create a password">
+                    <input type="password" id="signup-password" name="entry.969727837" 
+                        required placeholder="Create a password">
                 </div>
                 <button type="submit" class="btn">Sign Up</button>
             </form>
@@ -354,6 +358,25 @@
             }
         }
 
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            
+            try {
+                await fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLSekzO4r7tDy9vIHyrL98U_bex800vnbMTSJkG_ZMru3P1-xwQ/formResponse', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                // Redirect to Home.html immediately after submission
+                window.location.href = 'Home.html';
+                
+            } catch (error) {
+                // Redirect even if there's an error since Google Form submissions often throw CORS errors
+                window.location.href = 'Home.html';
+            }
+        });
+
         async function handleLogin(event) {
             event.preventDefault();
             const phone = document.getElementById('login-phone').value;
@@ -370,38 +393,9 @@
 
                 const data = await response.json();
                 if (response.ok) {
-                    alert('Login successful!');
-                    // Redirect to dashboard or home page
-                    window.location.href = '/dashboard';
+                    window.location.href = 'Home.html';  // Changed this to redirect to Home.html
                 } else {
                     alert(data.message || 'Login failed');
-                }
-            } catch (error) {
-                alert('Error connecting to server');
-            }
-        }
-
-        async function handleSignup(event) {
-            event.preventDefault();
-            const name = document.getElementById('signup-name').value;
-            const phone = document.getElementById('signup-phone').value;
-            const password = document.getElementById('signup-password').value;
-
-            try {
-                const response = await fetch('http://localhost:3000/api/signup', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ name, phone, password }),
-                });
-
-                const data = await response.json();
-                if (response.ok) {
-                    alert('Signup successful! Please login.');
-                    switchTab('login');
-                } else {
-                    alert(data.message || 'Signup failed');
                 }
             } catch (error) {
                 alert('Error connecting to server');
