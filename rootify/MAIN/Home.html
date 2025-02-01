@@ -542,101 +542,63 @@
         }
 
         .weather-box {
-            margin: 1.5rem auto;
-            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(145deg, rgba(165, 214, 167, 0.2), rgba(165, 214, 167, 0.3));
             backdrop-filter: blur(10px);
             border-radius: 15px;
-            padding: 1rem;
-            width: 80%;
-            max-width: 800px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.8rem;
+            width: 280px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            transition: transform 0.8s ease, opacity 0.8s ease;
+            z-index: 999;
+            animation: slideIn 0.8s ease forwards;
         }
 
-        /* Add dynamic background icon */
-        .weather-box .background-icon {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 4rem;
-            opacity: 0.8;
-            z-index: 0;
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .weather-box.slide-out {
+            transform: translateX(-100%);
+            opacity: 0;
         }
 
         .weather-widget {
             display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            gap: 1.5rem;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
             color: #ffffff;
-            position: relative;
-            z-index: 1;
-            padding-left: 6rem;
         }
 
-        /* Update weather icon colors */
-        .fa-sun { 
-            background: linear-gradient(45deg, #ffd700, #ff8c00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .fa-cloud { 
-            background: linear-gradient(45deg, #b0c4de, #4682b4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .fa-cloud-rain { 
-            background: linear-gradient(45deg, #4682b4, #00008b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .fa-cloud-bolt { 
-            background: linear-gradient(45deg, #daa520, #ff4500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .fa-snowflake { 
-            background: linear-gradient(45deg, #f0f8ff, #87ceeb);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .quote {
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #e8f5e9;
+            opacity: 0.9;
+            margin-top: 0.2rem;
         }
 
-        /* Update text sizes */
         #greeting {
-            font-size: 1.2rem;
-            margin-bottom: 0.3rem;
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+            color: #e8f5e9;
+            font-weight: 500;
         }
 
         #weather-details {
-            font-size: 1.1rem;
-        }
-
-        /* Update mobile responsiveness */
-        @media (max-width: 768px) {
-            .weather-box {
-                width: 90%;
-                padding: 1rem;
-            }
-
-            .weather-widget {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .weather-icon {
-                border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-                padding-bottom: 1rem;
-            }
-
-            .weather-info {
-                text-align: center;
-            }
+            font-size: 0.9rem;
+            color: #a5d6a7;
         }
     </style>
 </head>
@@ -644,8 +606,7 @@
     <header>
         <h1><span class="leaf-icon">🌾</span>Rootify</h1>
         <div class="tagline">
-            <div class="hindi-text">किसान की उन्नति, देश की प्रगति</div>
-            <div class="english-text">Farmer's Progress, Nation's Growth</div>
+            <div class="english-text">Grounded Solutions for Farmers</div>
         </div>
     </header>
 
@@ -669,6 +630,7 @@
         <a href="DiasaterManagement.html">Claims</a>
         <a href="Contactus.html">Contact</a>
         <a href="Login.html">Login/Signup</a>
+    
     </nav>
 
     <div class="hero-section">
@@ -676,11 +638,8 @@
             <h1 class="main-title">Empowering Indian Agriculture</h1>
             <div class="sub-title">समृद्ध किसान, समृद्ध भारत</div>
             <div class="weather-box">
-                <i class="fas background-icon"></i>
                 <div class="weather-widget">
-                    <div class="weather-icon">
-                        <i id="weather-icon" class="fas"></i>
-                    </div>
+                    <div class="quote">"In every seed lies the promise of a thousand forests."</div>
                     <div class="weather-info">
                         <div id="greeting">Good Morning!</div>
                         <div id="weather-details">Loading...</div>
@@ -795,8 +754,8 @@
     <div class="main-content">
         <a href="DiasaterManagement.html" class="block">
             <div class="block-icon disaster-icon"></div>
-            <h2>Disaster Management</h2>
-            <p>Get real-time alerts and guidance for managing agricultural disasters.</p>
+            <h2>Insurance Claims</h2>
+            <p>Step by step guide to cliam your insurance.</p>
         </a>
 
         <a href="Loans.html" class="block">
@@ -817,7 +776,7 @@
             <p>Checkout the requirements to grow the crops.</p>
         </a>
 
-        <a href="stores.html" class="block">
+        <a href="Nearby.html" class="block">
             <div class="block-icon store-icon">
                 <i class="fas fa-map-marker-alt"></i>
             </div>
@@ -825,7 +784,7 @@
             <p>Find agricultural stores and equipment near you</p>
         </a>
 
-        <a href="news.html" class="block">
+        <a href="News.html" class="block">
             <div class="block-icon news-icon">
                 <i class="fas fa-globe"></i>
             </div>
@@ -851,19 +810,19 @@
                 <h3>Connect With Us</h3>
                 <p>Follow us on social media for updates, tips, and agricultural insights.</p>
                 <div class="social-icons">
-                    <a href="https://facebook.com/rootify" target="_blank" aria-label="Facebook">
+                    <a href="https://facebook.com" target="_blank" aria-label="Facebook">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="https://twitter.com/rootify" target="_blank" aria-label="Twitter">
+                    <a href="https://twitter.com" target="_blank" aria-label="Twitter">
                         <i class="fab fa-twitter"></i>
                     </a>
-                    <a href="https://instagram.com/rootify" target="_blank" aria-label="Instagram">
+                    <a href="https://instagram.com" target="_blank" aria-label="Instagram">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://linkedin.com/company/rootify" target="_blank" aria-label="LinkedIn">
+                    <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
-                    <a href="https://youtube.com/rootify" target="_blank" aria-label="YouTube">
+                    <a href="https://youtube.com" target="_blank" aria-label="YouTube">
                         <i class="fab fa-youtube"></i>
                     </a>
                 </div>
@@ -915,21 +874,71 @@
         }
 
         function displayWeather(data) {
-            const weatherIcon = document.getElementById('weather-icon');
             const weatherDetails = document.getElementById('weather-details');
-            const iconClass = getWeatherIcon(data.weather[0].icon);
-            
-            weatherIcon.className = 'fas ' + iconClass;
-            
-            // Update both icons with the same weather class
-            const backgroundIcon = document.querySelector('.weather-box .background-icon');
-            backgroundIcon.className = 'fas ' + iconClass + ' background-icon';
             
             weatherDetails.innerHTML = `${Math.round(data.main.temp)}°C, ${data.weather[0].description}`;
             updateGreeting();
+            
+            // Update quote based on time of day
+            const hour = new Date().getHours();
+            const quote = document.querySelector('.quote');
+            if (hour >= 5 && hour < 12) {
+                quote.textContent = '"Each morning brings new potential, but only if you make the most of it."';
+            } else if (hour >= 12 && hour < 17) {
+                quote.textContent = '"The seeds we sow today will be the harvest of tomorrow."';
+            } else if (hour >= 17 && hour < 22) {
+                quote.textContent = '"Success in farming requires patience, dedication, and hope."';
+            } else {
+                quote.textContent = '"Rest well, for tomorrow brings new opportunities to grow."';
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Add slide out after 10 seconds
+            setTimeout(() => {
+                const weatherBox = document.querySelector('.weather-box');
+                weatherBox.classList.add('slide-out');
+                // Remove element after animation completes
+                setTimeout(() => {
+                    weatherBox.style.display = 'none';
+                }, 800);
+            }, 10000);
+
+            // Get user's location and fetch weather
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    fetchWeather(lat, lon);
+                }, error => {
+                    console.error('Error getting location:', error);
+                    // Default to a location (e.g., Bangalore)
+                    fetchWeather(12.9716, 77.5946);
+                });
+            }
+
+            function fetchWeather(lat, lon) {
+                const API_KEY = 'YOUR_OPENWEATHER_API_KEY'; // Replace with your API key
+                const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        displayWeather(data);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching weather:', error);
+                        // Show default data
+                        displayWeather({
+                            main: { temp: 25 },
+                            weather: [{ 
+                                icon: '01d',
+                                description: 'sunny'
+                            }]
+                        });
+                    });
+            }
+
             updateGreeting();
             setInterval(updateGreeting, 60000);
         });

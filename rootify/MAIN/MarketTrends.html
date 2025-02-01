@@ -23,12 +23,15 @@
             box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
+
+
         .footer {
             background: linear-gradient(to right, var(--primary-dark, #1b5e20), var(--primary, #2e7d32));
             color: #ffffff;
             padding: 3rem 0;
             margin-top: 4rem;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
         }
 
         .footer-content {
@@ -809,8 +812,9 @@
         <a href="Home.html">Home</a>
         <a href="Loans.html">Loans</a>
         <a href="marketTrends.html" class="active">Market Trends</a>
-        <a href="DisasterManagement.html">Disaster Management</a>
+        <a href="DiasaterManagement.html">Claims</a>
         <a href="Contactus.html">Contact</a>
+        <a href="Login.html">Login/Signup</a>
     </nav>
 
     <header class="main-header">
@@ -867,23 +871,23 @@
             </select>
         </div>
 
-        <!-- Add this after the state selector -->
+      
         <div id="graphContainer" class="graph-container hidden">
             <canvas id="priceChart"></canvas>
         </div>
 
-        <!-- State Analysis (shown after selection) -->
+       
         <div id="stateAnalysis" class="hidden">
-            <!-- State content will be loaded here -->
+            
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Show initial national data
+           
             showNationalData();
             
-            // Add event listener for state selection
+            
             document.getElementById('stateSelect').addEventListener('change', updateStateData);
         });
 
@@ -947,11 +951,11 @@
                 return;
             }
 
-            // Show loading state
+          
             stateAnalysis.innerHTML = '<div class="loading">Loading state data...</div>';
             stateAnalysis.classList.remove('hidden');
 
-            // Simulate API call delay
+         
             setTimeout(() => {
                 const data = generateStateData(stateSelect.value);
                 updateStateContent(data);
@@ -1140,39 +1144,38 @@
             });
         }
     </script>
-
-<footer class="footer">
-    <div class="footer-content">
-        <div class="footer-description">
-            <h3>About Rootify</h3>
-            <p>Rootify is a comprehensive agricultural platform designed to empower farmers with modern solutions. We provide essential services including loan assistance, market trend analysis, and disaster management support.</p>
-            <p>Our mission is to bridge the gap between traditional farming and modern technology, ensuring sustainable agricultural practices and improved farmer welfare.</p>
-        </div>
-        <div class="social-links">
-            <h3>Connect With Us</h3>
-            <p>Follow us on social media for updates, tips, and agricultural insights.</p>
-            <div class="social-icons">
-                <a href="https://facebook.com/rootify" target="_blank" aria-label="Facebook">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="https://twitter.com/rootify" target="_blank" aria-label="Twitter">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="https://instagram.com/rootify" target="_blank" aria-label="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://linkedin.com/company/rootify" target="_blank" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="https://youtube.com/rootify" target="_blank" aria-label="YouTube">
-                    <i class="fab fa-youtube"></i>
-                </a>
+     <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-description">
+                <h3>About Rootify</h3>
+                <p>Rootify is a comprehensive agricultural platform designed to empower farmers with modern solutions. We provide essential services including loan assistance, market trend analysis, and disaster management support.</p>
+                <p>Our mission is to bridge the gap between traditional farming and modern technology, ensuring sustainable agricultural practices and improved farmer welfare.</p>
+            </div>
+            <div class="social-links">
+                <h3>Connect With Us</h3>
+                <p>Follow us on social media for updates, tips, and agricultural insights.</p>
+                <div class="social-icons">
+                    <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://youtube.com" target="_blank" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="footer-bottom">
-        <p>&copy; 2024 Rootify. All rights reserved.</p>
-    </div>
-</footer>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Rootify. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>

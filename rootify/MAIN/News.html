@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriFuture - Farmer Impact Stories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Tiro+Devanagari+Hindi:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1589923188900-85dae523342b') center/cover fixed;
+            color: #fff;
+        }
+
+        .header {
+            background: rgba(46, 125, 50, 0.95);
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .navbar {
+            background-color: #2e7d32;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar a:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: #a5d6a7;
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover:before {
+            width: 80%;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .navbar a.active {
+            background-color: #4CAF50;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .footer {
+            background: linear-gradient(to right, var(--primary-dark, #1b5e20), var(--primary, #2e7d32));
+            color: #ffffff;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 4rem;
+            padding: 0 2rem;
+        }
+
+        .footer-description {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .footer-description h3 {
+            color: #81c784;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description p {
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .social-links h3 {
+            color: #81c784;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-3px);
+            background: #81c784;
+            color: #1b5e20;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .social-links, .footer-description {
+                max-width: 100%;
+            }
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #a5d6a7;
+            font-size: 1.1rem;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .impact-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .impact-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 1.2rem;
+        }
+
+        .disaster-type {
+            background: #e53935;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .flood { background: #1976d2; }
+        .drought { background: #e53935; }
+        .cyclone { background: #7b1fa2; }
+
+        .card-content h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            color: #a5d6a7;
+        }
+
+        .card-content p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .support-info {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 0.8rem;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .support-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: background 0.3s ease;
+        }
+
+        .support-btn:hover {
+            background: #388E3C;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            color: #a5d6a7;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .impact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .wildlife {
+            background: #ff9800;
+        }
+
+        .resources-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .resources-section h2 {
+            color: #a5d6a7;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .resource-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-link {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .resource-link:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .resource-link h3 {
+            color: #a5d6a7;
+            font-size: 1.2rem;
+        }
+
+        .resource-link p {
+            color: #388E3C;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .pest {
+            background: #ffffff;
+        }
+        
+        .heatwave {
+            background: #f44336;
+        }
+        
+        .coldwave {
+            background: #2196f3;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .resource-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .resource-card h3 {
+            color: #ffffff;
+            margin: 1rem 0;
+            font-size: 1.2rem;
+        }
+
+        .resource-card p {
+            color: #ffffff;
+            opacity: 0.9;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .resource-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        .unseasonal {
+            background: #795548;
+        }
+
+        .economic {
+            background: #607d8b;
+        }
+
+        .tsunami {
+            background: #006064;
+        }
+
+        .stat-number:first-child {
+            content: "750,000+";
+        }
+        
+        .stat-number:nth-child(2) {
+            content: "₹25,000Cr+";
+        }
+      
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="Home.html" >Home</a>
+        <a href="Loans.html">Loans</a>
+        <a href="MarketTrends.html">Market Trends</a>
+        <a href="DiasaterManagement.html">Claims</a>
+        <a href="Contactus.html">Contact</a>
+        <a href="Login.html">Login/Signup</a>
+    </nav>
+    <header class="header">
+        <h1>AgriFuture Impact Stories</h1>
+        <p>Supporting farmers through natural disasters and climate challenges</p>
+    </header>
+
+    <main class="main-content">
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">2,500+</div>
+                <div class="stat-label">Farmers Affected</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">₹15Cr</div>
+                <div class="stat-label">Relief Distributed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">12</div>
+                <div class="stat-label">States Covered</div>
+            </div>
+        </div>
+
+        <div class="impact-grid">
+            <div class="impact-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/4439578/pexels-photo-4439578.jpeg" alt="Assam Floods">
+                </div>
+                <div class="card-content">
+                    <span class="disaster-type flood">Flood</span>
+                    <h3>North-East India Flood Crisis</h3>
+                    <p>Assam and Manipur farmers face severe crop damage during monsoon season. Over 200,000 hectares of cultivated land affected.</p>
+                    <div class="support-info">
+                        <span>Location: Assam & Manipur</span>
+                        <a href="https://www.nerdrr.gov.in" class="support-btn" target="_blank">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="impact-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/5588344/pexels-photo-5588344.jpeg" alt="AP Horticulture">
+                </div>
+                <div class="card-content">
+                    <span class="disaster-type flood">Heavy Rains</span>
+                    <h3>Andhra Pradesh Horticulture Loss</h3>
+                    <p>Horticulture farmers face losses up to Rs 10,000 crore due to unprecedented heavy rains and floods.</p>
+                    <div class="support-info">
+                        <span>Location: Andhra Pradesh</span>
+                        <a href="https://timesofindia.indiatimes.com/city/vijayawada/crop-loss-horticulture-farmers-worst-hit" class="support-btn" target="_blank">Full Story</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="impact-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/5588497/pexels-photo-5588497.jpeg" alt="Drought Impact">
+                </div>
+                <div class="card-content">
+                    <span class="disaster-type drought">Drought</span>
+                    <h3>National Drought Crisis</h3>
+                    <p>Two-thirds of India affected by drought during 2020-2022. Farmers struggling with water scarcity and crop failures.</p>
+                    <div class="support-info">
+                        <span>Location: Pan India</span>
+                        <a href="https://www.insightsonindia.com/2022/05/13/drought-in-numbers-2022-report/" class="support-btn" target="_blank">Report Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="impact-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/4910866/pexels-photo-4910866.jpeg" alt="Wildlife Conflict">
+                </div>
+                <div class="card-content">
+                    <span class="disaster-type wildlife">Wildlife Conflict</span>
+                    <h3>Madhya Pradesh Wildlife Crisis</h3>
+                    <p>Cotton farmers in Chhindwara region facing challenges from wildlife, including tiger encounters affecting farming activities.</p>
+                    <div class="support-info">
+                        <span>Location: Chhindwara, MP</span>
+                        <a href="https://www.lemonde.fr/en/international/article/2023/02/14/in-central-india-green-cotton-struggles-to-take-root_6015696_4.html" class="support-btn" target="_blank">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="impact-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/4439425/pexels-photo-4439425.jpeg" alt="Locust Attack">
+                </div>
+                <div class="card-content">
+                    <span class="disaster-type pest">Pest Infestation</span>
+                    <h3>Rajasthan Locust Crisis</h3>
+                    <p>Massive locust swarms devastate crops across Rajasthan and Gujarat, affecting thousands of hectares of farmland.</p>
+                    <div class="support-info">
+                        <span>Location: Rajasthan & Gujarat</span>
+                        <a href="http://www.fao.org/ag/locusts/en/info/info/index.html" class="support-btn" target="_blank">FAO Report</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="impact-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg" alt="Cyclone Impact">
+                </div>
+                <div class="card-content">
+                    <span class="disaster-type cyclone">Cyclone</span>
+                    <h3>Cyclone Amphan Impact</h3>
+                    <p>Devastating impact on West Bengal and Odisha agriculture, with millions of farmers affected and widespread crop destruction.</p>
+                    <div class="support-info">
+                        <span>Location: WB & Odisha</span>
+                        <a href="https://ndma.gov.in" class="support-btn" target="_blank">NDMA Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="impact-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/5588498/pexels-photo-5588498.jpeg" alt="Heatwave">
+                </div>
+                <div class="card-content">
+                    <span class="disaster-type heatwave">Heatwave</span>
+                    <h3>AP & Telangana Heat Crisis</h3>
+                    <p>Extreme heat conditions severely affecting crops and livestock in southern states, leading to significant agricultural losses.</p>
+                    <div class="support-info">
+                        <span>Location: AP & Telangana</span>
+                        <a href="https://mausam.imd.gov.in" class="support-btn" target="_blank">IMD Report</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="impact-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/4355346/pexels-photo-4355346.jpeg" alt="Tamil Nadu Drought">
+                </div>
+                <div class="card-content">
+                    <span class="disaster-type drought">Historic Drought</span>
+                    <h3>Tamil Nadu's 140-Year Crisis</h3>
+                    <p>Worst drought in 140 years led to severe water shortages, crop failures, and farmer protests in Delhi demanding relief.</p>
+                    <div class="support-info">
+                        <span>Location: Tamil Nadu</span>
+                        <a href="#" class="support-btn">Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="impact-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/4439578/pexels-photo-4439578.jpeg" alt="Maharashtra Drought">
+                </div>
+                <div class="card-content">
+                    <span class="disaster-type drought">Severe Drought</span>
+                    <h3>Maharashtra's 40-Year Low</h3>
+                    <p>Solapur, Parbhani, and Ahmednagar districts faced acute water scarcity affecting thousands of villages.</p>
+                    <div class="support-info">
+                        <span>Location: Maharashtra</span>
+                        <a href="#" class="support-btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="impact-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/5588497/pexels-photo-5588497.jpeg" alt="Coffee Crisis">
+                </div>
+                <div class="card-content">
+                    <span class="disaster-type climate">Climate Impact</span>
+                    <h3>Karnataka Coffee Crisis</h3>
+                    <p>Erratic weather patterns affecting coffee production in Karnataka and Kerala, impacting export prospects.</p>
+                    <div class="support-info">
+                        <span>Location: Karnataka, Kerala</span>
+                        <a href="#" class="support-btn">Report</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="impact-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/6249440/pexels-photo-6249440.jpeg" alt="Saffron Fields">
+                </div>
+                <div class="card-content">
+                    <span class="disaster-type climate">Temperature Rise</span>
+                    <h3>Kashmir Saffron Challenge</h3>
+                    <p>Rising temperatures affecting saffron cultivation, forcing farmers to adopt indoor farming methods.</p>
+                    <div class="support-info">
+                        <span>Location: Kashmir</span>
+                        <a href="#" class="support-btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="impact-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/1431822/pexels-photo-1431822.jpeg" alt="Kerala Floods">
+                </div>
+                <div class="card-content">
+                    <span class="disaster-type flood">Century Flood</span>
+                    <h3>Kerala's Century Flood Crisis</h3>
+                    <p>41,000 hectares destroyed, affecting 315,000+ farmers. Over 112,643 banana cultivators suffered severe losses.</p>
+                    <div class="support-info">
+                        <span>Location: Kerala</span>
+                        <a href="https://timesofindia.indiatimes.com" class="support-btn" target="_blank">Full Report</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="impact-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/4439578/pexels-photo-4439578.jpeg" alt="Odisha Floods">
+                </div>
+                <div class="card-content">
+                    <span class="disaster-type flood">Severe Floods</span>
+                    <h3>Odisha's 2011 Devastation</h3>
+                    <p>Massive agricultural losses in one of India's poorest states. Multiple districts affected by submerged fields.</p>
+                    <div class="support-info">
+                        <span>Location: Odisha</span>
+                        <a href="https://isaeindia.org" class="support-btn" target="_blank">Impact Study</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="impact-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/1295036/pexels-photo-1295036.jpeg" alt="Tamil Nadu Tsunami">
+                </div>
+                <div class="card-content">
+                    <span class="disaster-type tsunami">Tsunami</span>
+                    <h3>2004 Tsunami Impact</h3>
+                    <p>4,657 hectares damaged by seawater in Nagapattinam. Long-term soil salinization affecting cultivation.</p>
+                    <div class="support-info">
+                        <span>Location: Tamil Nadu</span>
+                        <a href="https://researchgate.net" class="support-btn" target="_blank">Research Data</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="impact-card">
+                <div class="card-image">
+                    <img src="https://images.pexels.com/photos/4356144/pexels-photo-4356144.jpeg" alt="North India Rains">
+                </div>
+                <div class="card-content">
+                    <span class="disaster-type unseasonal">Unseasonal Rains</span>
+                    <h3>2015 North India Crisis</h3>
+                    <p>Massive damage to wheat, potato, chickpea, and rapeseed crops due to unexpected rains and hailstorms.</p>
+                    <div class="support-info">
+                        <span>Location: North India</span>
+                        <a href="https://gca.org" class="support-btn" target="_blank">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="resources-section">
+        <h2>Official Resources & Reports</h2>
+        <div class="resource-grid">
+            <a href="https://ndma.gov.in" class="resource-card" target="_blank">
+                <div class="resource-icon">🏛</div>
+                <h3>NDMA Portal</h3>
+                <p>National Disaster Management Authority's official reports and guidelines</p>
+            </a>
+            
+            <a href="https://icar.org.in" class="resource-card" target="_blank">
+                <div class="resource-icon">🌾</div>
+                <h3>ICAR Resources</h3>
+                <p>Research and reports on agricultural impacts and solutions</p>
+            </a>
+            
+            <a href="https://mausam.imd.gov.in" class="resource-card" target="_blank">
+                <div class="resource-icon">🌡</div>
+                <h3>IMD Updates</h3>
+                <p>Weather forecasts and climate impact analysis</p>
+            </a>
+            
+            <a href="https://gsi.gov.in" class="resource-card" target="_blank">
+                <div class="resource-icon">🗺</div>
+                <h3>GSI Reports</h3>
+                <p>Geological surveys and landslide information</p>
+            </a>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-description">
+                <h3>About Rootify</h3>
+                <p>Rootify is a comprehensive agricultural platform designed to empower farmers with modern solutions. We provide essential services including loan assistance, market trend analysis, and disaster management support.</p>
+                <p>Our mission is to bridge the gap between traditional farming and modern technology, ensuring sustainable agricultural practices and improved farmer welfare.</p>
+            </div>
+            <div class="social-links">
+                <h3>Connect With Us</h3>
+                <p>Follow us on social media for updates, tips, and agricultural insights.</p>
+                <div class="social-icons">
+                    <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://youtube.com" target="_blank" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Rootify. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
