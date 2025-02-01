@@ -204,7 +204,12 @@
             justify-content: center;
             margin: 2rem 0;
         }
-
+        #google_translate_element {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1001;
+        }
         body {
             top: 0 !important;
         }
@@ -369,6 +374,18 @@
     </style>
 </head>
 <body>
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'hi,mr,kn,ta,te,ml,gu,bn,pa,ur,or,as,en',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+
     <nav class="navbar">
         <a href="Home.html">Home</a>
         <a href="Loans.html">Loans</a>

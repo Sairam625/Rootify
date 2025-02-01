@@ -18,6 +18,7 @@
                 url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
             background-size: cover;
             background-position: center;
+            font-family: 'Times New Roman', Times, serif;
             background-attachment: fixed;
             min-height: 100vh;
         }
@@ -424,32 +425,33 @@
         <div class="loans-grid">
             <div class="loan-card">
                 <h3>Kisan Credit Card (KCC) Scheme</h3>
-                <a href="https://ahvs.karnataka.gov.in/info-2/Schemes%2B%26%2BBenefits/en" target="_blank">Learn More →</a>
+                <a href="https://www.myscheme.gov.in/schemes/kcc" target="_blank">Learn More →</a>
             </div>
+            
 
             <div class="loan-card">
                 <h3>Agriculture Gold Loan & Special Gold Loan</h3>
-                <a href="https://karnatakagraminbank.com/banking-proserv/agriculture-loans" target="_blank">Learn More →</a>
+                <a href="https://www.bankofbaroda.in/personal-banking/loans/gold-loan/agri-gold-loan#:~:text=Agri%20gold%20loan%20%E2%80%93%20it%20fulfills,as%20and%20when%20MCLR%20changes." target="_blank">Learn More →</a>
             </div>
 
             <div class="loan-card">
                 <h3>Agriculture Marketing Infrastructure (AMI/Godown)</h3>
-                <a href="https://karnatakagraminbank.com/banking-proserv/agriculture-loans" target="_blank">Learn More →</a>
+                <a href="https://www.nabard.org/content1.aspx?id=702&catid=23&mid=23" target="_blank">Learn More →</a>
             </div>
 
             <div class="loan-card">
                 <h3>Dairy Entrepreneurship Development Scheme (DEDS)</h3>
-                <a href="https://karnatakagraminbank.com/banking-proserv/agriculture-loans" target="_blank">Learn More →</a>
+                <a href="https://www.nabard.org/content1.aspx?id=591&catid=23&mid=23" target="_blank">Learn More →</a>
             </div>
 
             <div class="loan-card">
                 <h3>National Livestock Mission (NLM)</h3>
-                <a href="https://karnatakagraminbank.com/banking-proserv/agriculture-loans" target="_blank">Learn More →</a>
+                <a href="https://nlm.udyamimitra.in/" target="_blank">Learn More →</a>
             </div>
 
             <div class="loan-card">
                 <h3>Agri-Clinics and Agri-Business Centres</h3>
-                <a href="https://karnatakagraminbank.com/banking-proserv/agriculture-loans" target="_blank">Learn More →</a>
+                <a href="https://www.nabard.org/content1.aspx?id=595&catid=23&mid=23" target="_blank">Learn More →</a>
             </div>
 
             <div class="loan-card">
@@ -459,22 +461,22 @@
 
             <div class="loan-card">
                 <h3>Interest Subsidy Scheme</h3>
-                <a href="https://www.karnatakaapex.in/new/index.php/en/agriculture-finance/interest-subsidy-scheme/introduction" target="_blank">Learn More →</a>
+                <a href="https://www.education.gov.in/scholarships-education-loan-4" target="_blank">Learn More →</a>
             </div>
 
             <div class="loan-card">
                 <h3>Pashu Bhagya Scheme</h3>
-                <a href="https://ahvs.karnataka.gov.in/info-2/Schemes%2B%26%2BBenefits/en" target="_blank">Learn More →</a>
+                <a href="https://pashubhagya.kar.nic.in/FAQ-en.aspx" target="_blank">Learn More →</a>
             </div>
 
             <div class="loan-card">
                 <h3>Mahabank Kisan Credit Card (MKCC)</h3>
-                <a href="https://bankofmaharashtra.in/agricultures" target="_blank">Learn More →</a>
+                <a href="https://www.myscheme.gov.in/schemes/smam" target="_blank">Learn More →</a>
             </div>
 
             <div class="loan-card">
                 <h3>Mahabank Kisan All Purpose Term Loan</h3>
-                <a href="https://bankofmaharashtra.in/kisan-all-purpose-term-loan" target="_blank">Learn More →</a>
+                <a href="https://www.nabard.org/content1.aspx?id=1720&catid=8&mid=8" target="_blank">Learn More →</a>
             </div>
 
             <div class="loan-card">
@@ -504,18 +506,18 @@
 
             <div class="loan-card">
                 <h3>Agricultural Produce Pledge Loan Scheme</h3>
-                <a href="https://www.msamb.com/schemes/pledgefinance" target="_blank">Learn More →</a>
+                <a href="https://www.myscheme.gov.in/schemes/aif" target="_blank">Learn More →</a>
             </div>
 
             <div class="loan-card">
                 <h3>District Level Animal Husbandry Schemes</h3>
-                <a href="https://dahd.maharashtra.gov.in/en/scheme/district-level-schemes" target="_blank">Learn More →</a>
+                <a href="https://www.pmfby.gov.in/" target="_blank">Learn More →</a>
             </div>
         </div>
     </div>
 
     <script>
-        // Define loan schemes with their respective states
+        
         const loanSchemes = {
             'Kisan Credit Card (KCC) Scheme': {
                 states: 'ALL',
@@ -591,9 +593,9 @@
             }
         };
 
-        // Create loan cards dynamically
+       
         const loansGrid = document.querySelector('.loans-grid');
-        loansGrid.innerHTML = ''; // Clear existing cards
+        loansGrid.innerHTML = ''; 
 
         Object.entries(loanSchemes).forEach(([name, details]) => {
             const card = document.createElement('div');

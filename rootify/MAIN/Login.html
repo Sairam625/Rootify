@@ -102,6 +102,7 @@
             padding: 3rem 0;
             margin-top: 4rem;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
         }
 
         .footer-content {
@@ -182,6 +183,12 @@
             .social-links, .footer-description {
                 max-width: 100%;
             }
+        }
+        #google_translate_element {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1001;
         }
 
         .tabs {
@@ -297,6 +304,18 @@
         <div class="logo">🌱 Rootify</div>
         <h2>Grounded Solution For Farmers</h2>
     </div>
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'hi,mr,kn,ta,te,ml,gu,bn,pa,ur,or,as,en',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <div class="container">
         <div class="tabs">
@@ -368,11 +387,11 @@
                     body: formData
                 });
                 
-                // Redirect to Home.html immediately after submission
+                
                 window.location.href = 'Home.html';
                 
             } catch (error) {
-                // Redirect even if there's an error since Google Form submissions often throw CORS errors
+                 
                 window.location.href = 'Home.html';
             }
         });
@@ -393,7 +412,7 @@
 
                 const data = await response.json();
                 if (response.ok) {
-                    window.location.href = 'Home.html';  // Changed this to redirect to Home.html
+                    window.location.href = 'Home.html';   
                 } else {
                     alert(data.message || 'Login failed');
                 }

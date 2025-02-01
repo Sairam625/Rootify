@@ -160,6 +160,12 @@
         body {
             top: 0 !important;
         }
+        #google_translate_element {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1001;
+        }
         .footer {
             background: linear-gradient(to right, var(--primary-dark, #1b5e20), var(--primary, #2e7d32));
             color: #ffffff;
@@ -250,6 +256,18 @@
     </style>
 </head>
 <body>
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'hi,mr,kn,ta,te,ml,gu,bn,pa,ur,or,as,en',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+
     <nav class="navbar">
         <a href="Home.html" >Home</a>
         <a href="Loans.html">Loans</a>
