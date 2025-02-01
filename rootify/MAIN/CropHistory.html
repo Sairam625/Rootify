@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop History - Rootify</title>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --primary-light: #4caf50;
+            --primary-dark: #1b5e20;
+            --accent: #81c784;
+            --text-dark: #1c2833;
+            --text-light: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #fff;
+        }
+
+        /* Space for navbar */
+        .navbar-space {
+            height: 60px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            color: var(--accent);
+            margin: 2rem 0;
+            font-size: 2.5rem;
+        }
+
+        .crop-table {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .crop-table th {
+            background: var(--primary);
+            color: var(--text-light);
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .crop-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .crop-table tr:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .search-filter {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-filter input,
+        .search-filter select {
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            backdrop-filter: blur(5px);
+        }
+
+        .search-filter input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .region-tag {
+            background: var(--primary-light);
+            color: var(--text-light);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin: 0.2rem;
+        }
+        
+         
+        .navbar {
+            background-color: #2e7d32;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar a:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: #a5d6a7;
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover:before {
+            width: 80%;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .navbar a.active {
+            background-color: #4CAF50;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        body {
+            top: 0 !important;
+        }
+        .footer {
+            background: linear-gradient(to right, var(--primary-dark, #1b5e20), var(--primary, #2e7d32));
+            color: #ffffff;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 4rem;
+            padding: 0 2rem;
+        }
+
+        .footer-description {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .footer-description h3 {
+            color: #81c784;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description p {
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .social-links h3 {
+            color: #81c784;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-3px);
+            background: #81c784;
+            color: #1b5e20;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .social-links, .footer-description {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="Home.html" >Home</a>
+        <a href="Loans.html">Loans</a>
+        <a href="MarketTrends.html">Market Trends</a>
+        <a href="DiasaterManagement.html">Claims</a>
+        <a href="Contactus.html">Contact</a>
+        <a href="Login.html">Login/Signup</a>
+        
+    </nav>
+    <div class="navbar-space"></div>
+
+    <div class="container">
+        <h1 class="page-title">Crop History </h1>
+
+        <div class="search-filter">
+            <input type="text" placeholder="Search crops..." id="searchCrop">
+            <select id="regionFilter">
+                <option value="">All Regions</option>
+                <option value="North India">North India</option>
+                <option value="South India">South India</option>
+                <option value="East India">East India</option>
+                <option value="West India">West India</option>
+                <option value="Central India">Central India</option>
+            </select>
+        </div>
+
+        <table class="crop-table">
+            <thead>
+                <tr>
+                    <th>Crop Name</th>
+                    <th>Growing Regions</th>
+                    <th>Growing Season</th>
+                    <th>Average Yield (per hectare)</th>
+                    <th>Water Requirement</th>
+                    <th>Soil Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Rice (Paddy)</td>
+                    <td>
+                        <span class="region-tag">West Bengal</span>
+                        <span class="region-tag">Punjab</span>
+                        <span class="region-tag">Tamil Nadu</span>
+                    </td>
+                    <td>June-November (Kharif)</td>
+                    <td>3.5-4 tonnes</td>
+                    <td>High</td>
+                    <td>Clay, Clay-loam</td>
+                </tr>
+                <tr>
+                    <td>Wheat</td>
+                    <td>
+                        <span class="region-tag">Punjab</span>
+                        <span class="region-tag">Haryana</span>
+                        <span class="region-tag">Uttar Pradesh</span>
+                    </td>
+                    <td>November-April (Rabi)</td>
+                    <td>4-5 tonnes</td>
+                    <td>Medium</td>
+                    <td>Loam, Clay-loam</td>
+                </tr>
+                <!-- Add more rows with different crops -->
+                <tr>
+                    <td>Cotton</td>
+                    <td>
+                        <span class="region-tag">Gujarat</span>
+                        <span class="region-tag">Maharashtra</span>
+                        <span class="region-tag">Punjab</span>
+                    </td>
+                    <td>March-October</td>
+                    <td>2-2.5 tonnes</td>
+                    <td>Medium-High</td>
+                    <td>Black soil, Alluvial</td>
+                </tr>
+                <!-- Continue with more crops... -->
+                <tr>
+                    <td>Sugarcane</td>
+                    <td>
+                        <span class="region-tag">Uttar Pradesh</span>
+                        <span class="region-tag">Maharashtra</span>
+                        <span class="region-tag">Karnataka</span>
+                        <span class="region-tag">Tamil Nadu</span>
+                    </td>
+                    <td>Spring (Feb-March) & Autumn (Sept-Oct)</td>
+                    <td>70-80 tonnes</td>
+                    <td>Very High</td>
+                    <td>Deep rich loamy soil</td>
+                </tr>
+
+                <tr>
+                    <td>Maize (Corn)</td>
+                    <td>
+                        <span class="region-tag">Karnataka</span>
+                        <span class="region-tag">Andhra Pradesh</span>
+                        <span class="region-tag">Bihar</span>
+                        <span class="region-tag">Madhya Pradesh</span>
+                    </td>
+                    <td>Kharif & Rabi</td>
+                    <td>2.5-3 tonnes</td>
+                    <td>Medium</td>
+                    <td>Well-drained alluvial</td>
+                </tr>
+
+                <tr>
+                    <td>Groundnut</td>
+                    <td>
+                        <span class="region-tag">Gujarat</span>
+                        <span class="region-tag">Rajasthan</span>
+                        <span class="region-tag">Tamil Nadu</span>
+                        <span class="region-tag">Andhra Pradesh</span>
+                    </td>
+                    <td>June-September (Kharif)</td>
+                    <td>1.5-2 tonnes</td>
+                    <td>Low-Medium</td>
+                    <td>Sandy loam, Well-drained</td>
+                </tr>
+
+                <tr>
+                    <td>Mustard</td>
+                    <td>
+                        <span class="region-tag">Rajasthan</span>
+                        <span class="region-tag">Uttar Pradesh</span>
+                        <span class="region-tag">Haryana</span>
+                    </td>
+                    <td>October-February (Rabi)</td>
+                    <td>1-1.5 tonnes</td>
+                    <td>Low</td>
+                    <td>Light loamy soil</td>
+                </tr>
+
+                <tr>
+                    <td>Turmeric</td>
+                    <td>
+                        <span class="region-tag">Telangana</span>
+                        <span class="region-tag">Tamil Nadu</span>
+                        <span class="region-tag">Maharashtra</span>
+                    </td>
+                    <td>June-July</td>
+                    <td>5-7 tonnes</td>
+                    <td>Medium-High</td>
+                    <td>Well-drained clay loam</td>
+                </tr>
+
+                <tr>
+                    <td>Soybean</td>
+                    <td>
+                        <span class="region-tag">Madhya Pradesh</span>
+                        <span class="region-tag">Maharashtra</span>
+                        <span class="region-tag">Rajasthan</span>
+                    </td>
+                    <td>June-September (Kharif)</td>
+                    <td>1.5-2 tonnes</td>
+                    <td>Medium</td>
+                    <td>Well-drained fertile soil</td>
+                </tr>
+
+                <tr>
+                    <td>Tea</td>
+                    <td>
+                        <span class="region-tag">Assam</span>
+                        <span class="region-tag">West Bengal</span>
+                        <span class="region-tag">Tamil Nadu</span>
+                        <span class="region-tag">Kerala</span>
+                    </td>
+                    <td>Year-round (Harvested regularly)</td>
+                    <td>2000-2500 kg</td>
+                    <td>High</td>
+                    <td>Deep, acidic soil</td>
+                </tr>
+
+                <tr>
+                    <td>Coffee</td>
+                    <td>
+                        <span class="region-tag">Karnataka</span>
+                        <span class="region-tag">Kerala</span>
+                        <span class="region-tag">Tamil Nadu</span>
+                    </td>
+                    <td>November-January</td>
+                    <td>1500-2000 kg</td>
+                    <td>Medium-High</td>
+                    <td>Well-drained, rich organic</td>
+                </tr>
+
+                <tr>
+                    <td>Jute</td>
+                    <td>
+                        <span class="region-tag">West Bengal</span>
+                        <span class="region-tag">Bihar</span>
+                        <span class="region-tag">Assam</span>
+                    </td>
+                    <td>March-May</td>
+                    <td>2-3 tonnes</td>
+                    <td>High</td>
+                    <td>Alluvial soil</td>
+                </tr>
+
+                <tr>
+                    <td>Cardamom</td>
+                    <td>
+                        <span class="region-tag">Kerala</span>
+                        <span class="region-tag">Karnataka</span>
+                        <span class="region-tag">Tamil Nadu</span>
+                    </td>
+                    <td>August-November</td>
+                    <td>200-250 kg</td>
+                    <td>High</td>
+                    <td>Rich organic soil</td>
+                </tr>
+
+                <tr>
+                    <td>Coconut</td>
+                    <td>
+                        <span class="region-tag">Kerala</span>
+                        <span class="region-tag">Tamil Nadu</span>
+                        <span class="region-tag">Karnataka</span>
+                        <span class="region-tag">Andhra Pradesh</span>
+                    </td>
+                    <td>Year-round</td>
+                    <td>10000-12000 nuts/hectare</td>
+                    <td>Medium-High</td>
+                    <td>Sandy loam, Laterite</td>
+                </tr>
+
+                <tr>
+                    <td>Rubber</td>
+                    <td>
+                        <span class="region-tag">Kerala</span>
+                        <span class="region-tag">Tamil Nadu</span>
+                        <span class="region-tag">Karnataka</span>
+                    </td>
+                    <td>Year-round (Tapping)</td>
+                    <td>1500-2000 kg</td>
+                    <td>High</td>
+                    <td>Well-drained red soil</td>
+                </tr>
+
+                <tr>
+                    <td>Mango</td>
+                    <td>
+                        <span class="region-tag">Uttar Pradesh</span>
+                        <span class="region-tag">Andhra Pradesh</span>
+                        <span class="region-tag">Karnataka</span>
+                        <span class="region-tag">Bihar</span>
+                    </td>
+                    <td>March-July</td>
+                    <td>10-12 tonnes</td>
+                    <td>Medium</td>
+                    <td>Deep, well-drained soil</td>
+                </tr>
+
+                <tr>
+                    <td>Potato</td>
+                    <td>
+                        <span class="region-tag">Uttar Pradesh</span>
+                        <span class="region-tag">West Bengal</span>
+                        <span class="region-tag">Bihar</span>
+                        <span class="region-tag">Punjab</span>
+                    </td>
+                    <td>October-November (Rabi)</td>
+                    <td>20-25 tonnes</td>
+                    <td>Medium</td>
+                    <td>Well-drained loamy soil</td>
+                </tr>
+
+                <tr>
+                    <td>Tomato</td>
+                    <td>
+                        <span class="region-tag">Maharashtra</span>
+                        <span class="region-tag">Karnataka</span>
+                        <span class="region-tag">Madhya Pradesh</span>
+                    </td>
+                    <td>Year-round</td>
+                    <td>20-25 tonnes</td>
+                    <td>Medium</td>
+                    <td>Rich loamy soil</td>
+                </tr>
+
+                <tr>
+                    <td>Onion</td>
+                    <td>
+                        <span class="region-tag">Maharashtra</span>
+                        <span class="region-tag">Karnataka</span>
+                        <span class="region-tag">Gujarat</span>
+                        <span class="region-tag">Bihar</span>
+                    </td>
+                    <td>Kharif & Rabi</td>
+                    <td>15-20 tonnes</td>
+                    <td>Medium</td>
+                    <td>Well-drained soil</td>
+                </tr>
+
+                <!-- Add more crops as needed... -->
+
+                <!-- North India Crops -->
+                <tr>
+                    <td>Barley</td>
+                    <td>
+                        <span class="region-tag">Punjab</span>
+                        <span class="region-tag">Haryana</span>
+                        <span class="region-tag">Uttar Pradesh</span>
+                        <span class="region-tag">Rajasthan</span>
+                    </td>
+                    <td>November-March (Rabi)</td>
+                    <td>2.5-3 tonnes</td>
+                    <td>Low-Medium</td>
+                    <td>Well-drained loamy soil</td>
+                </tr>
+
+                <tr>
+                    <td>Peas</td>
+                    <td>
+                        <span class="region-tag">Uttar Pradesh</span>
+                        <span class="region-tag">Punjab</span>
+                        <span class="region-tag">Himachal Pradesh</span>
+                    </td>
+                    <td>November-March</td>
+                    <td>4-5 tonnes</td>
+                    <td>Medium</td>
+                    <td>Sandy loam</td>
+                </tr>
+
+                <!-- South India Crops -->
+                <tr>
+                    <td>Black Pepper</td>
+                    <td>
+                        <span class="region-tag">Kerala</span>
+                        <span class="region-tag">Karnataka</span>
+                        <span class="region-tag">Tamil Nadu</span>
+                    </td>
+                    <td>December-January</td>
+                    <td>300-400 kg</td>
+                    <td>High</td>
+                    <td>Rich organic soil</td>
+                </tr>
+
+                <tr>
+                    <td>Banana</td>
+                    <td>
+                        <span class="region-tag">Tamil Nadu</span>
+                        <span class="region-tag">Kerala</span>
+                        <span class="region-tag">Karnataka</span>
+                        <span class="region-tag">Andhra Pradesh</span>
+                    </td>
+                    <td>Year-round</td>
+                    <td>30-35 tonnes</td>
+                    <td>High</td>
+                    <td>Deep loamy soil</td>
+                </tr>
+
+                <!-- East India Crops -->
+                <tr>
+                    <td>Bamboo</td>
+                    <td>
+                        <span class="region-tag">Assam</span>
+                        <span class="region-tag">West Bengal</span>
+                        <span class="region-tag">Odisha</span>
+                    </td>
+                    <td>Year-round</td>
+                    <td>25-30 tonnes</td>
+                    <td>Medium-High</td>
+                    <td>Well-drained fertile soil</td>
+                </tr>
+
+                <tr>
+                    <td>Litchi</td>
+                    <td>
+                        <span class="region-tag">Bihar</span>
+                        <span class="region-tag">West Bengal</span>
+                        <span class="region-tag">Assam</span>
+                    </td>
+                    <td>May-June</td>
+                    <td>8-10 tonnes</td>
+                    <td>Medium</td>
+                    <td>Well-drained sandy loam</td>
+                </tr>
+
+                <!-- West India Crops -->
+                <tr>
+                    <td>Dates</td>
+                    <td>
+                        <span class="region-tag">Gujarat</span>
+                        <span class="region-tag">Rajasthan</span>
+                        <span class="region-tag">Maharashtra</span>
+                    </td>
+                    <td>July-September</td>
+                    <td>4-5 tonnes</td>
+                    <td>Low</td>
+                    <td>Sandy soil</td>
+                </tr>
+
+                <tr>
+                    <td>Pomegranate</td>
+                    <td>
+                        <span class="region-tag">Maharashtra</span>
+                        <span class="region-tag">Gujarat</span>
+                        <span class="region-tag">Rajasthan</span>
+                    </td>
+                    <td>Year-round</td>
+                    <td>15-20 tonnes</td>
+                    <td>Medium</td>
+                    <td>Well-drained loamy soil</td>
+                </tr>
+
+                <!-- Central India Crops -->
+                <tr>
+                    <td>Chickpea (Gram)</td>
+                    <td>
+                        <span class="region-tag">Madhya Pradesh</span>
+                        <span class="region-tag">Maharashtra</span>
+                        <span class="region-tag">Rajasthan</span>
+                    </td>
+                    <td>October-March (Rabi)</td>
+                    <td>1-1.5 tonnes</td>
+                    <td>Low</td>
+                    <td>Black soil</td>
+                </tr>
+
+                <tr>
+                    <td>Orange</td>
+                    <td>
+                        <span class="region-tag">Madhya Pradesh</span>
+                        <span class="region-tag">Maharashtra</span>
+                        <span class="region-tag">Rajasthan</span>
+                    </td>
+                    <td>October-December</td>
+                    <td>15-20 tonnes</td>
+                    <td>Medium</td>
+                    <td>Well-drained loamy soil</td>
+                </tr>
+
+                <!-- Additional Regional Specialties -->
+                <tr>
+                    <td>Saffron</td>
+                    <td>
+                        <span class="region-tag">Jammu & Kashmir</span>
+                        <span class="region-tag">Himachal Pradesh</span>
+                    </td>
+                    <td>October-November</td>
+                    <td>3-4 kg</td>
+                    <td>Low</td>
+                    <td>Well-drained karewa soil</td>
+                </tr>
+
+                <tr>
+                    <td>Cashew</td>
+                    <td>
+                        <span class="region-tag">Kerala</span>
+                        <span class="region-tag">Karnataka</span>
+                        <span class="region-tag">Goa</span>
+                        <span class="region-tag">Maharashtra</span>
+                    </td>
+                    <td>February-May</td>
+                    <td>1-1.5 tonnes</td>
+                    <td>Medium</td>
+                    <td>Laterite, Sandy soil</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Search and filter functionality
+        document.getElementById('searchCrop').addEventListener('input', filterTable);
+        document.getElementById('regionFilter').addEventListener('change', filterTable);
+
+        // Region to state mapping
+        const regionMapping = {
+            'north india': ['punjab', 'haryana', 'uttar pradesh', 'himachal pradesh', 'jammu & kashmir', 'rajasthan'],
+            'south india': ['kerala', 'karnataka', 'tamil nadu', 'andhra pradesh', 'telangana'],
+            'east india': ['west bengal', 'bihar', 'assam', 'odisha'],
+            'west india': ['gujarat', 'maharashtra', 'goa', 'rajasthan'],
+            'central india': ['madhya pradesh', 'maharashtra', 'chhattisgarh']
+        };
+
+        function filterTable() {
+            const searchText = document.getElementById('searchCrop').value.toLowerCase();
+            const regionFilter = document.getElementById('regionFilter').value.toLowerCase();
+            const rows = document.querySelectorAll('.crop-table tbody tr');
+            
+            // If no region is selected, just filter by search text
+            if (!regionFilter) {
+                rows.forEach(row => {
+                    const cropName = row.cells[0].textContent.toLowerCase();
+                    row.style.display = cropName.includes(searchText) ? '' : 'none';
+                });
+                return;
+            }
+
+            // Get states for selected region
+            const regionStates = regionMapping[regionFilter];
+            let matchingCrops = [];
+
+            // First pass: find all matching crops
+            rows.forEach(row => {
+                const cropName = row.cells[0].textContent.toLowerCase();
+                const regions = row.cells[1].textContent.toLowerCase();
+                
+                const matchesSearch = !searchText || cropName.includes(searchText);
+                const matchesRegion = regionStates.some(state => regions.toLowerCase().includes(state));
+
+                if (matchesSearch && matchesRegion) {
+                    matchingCrops.push(row);
+                }
+                row.style.display = 'none'; // Hide all rows initially
+            });
+
+            // If less than 4 crops match, show related crops from neighboring regions
+            if (matchingCrops.length < 4) {
+                rows.forEach(row => {
+                    const cropName = row.cells[0].textContent.toLowerCase();
+                    if (!matchingCrops.includes(row) && (!searchText || cropName.includes(searchText))) {
+                        matchingCrops.push(row);
+                    }
+                });
+            }
+
+            // Show at least 4 crops (or all matching if less than 4 total)
+            const cropsToShow = Math.max(4, matchingCrops.length);
+            matchingCrops.slice(0, cropsToShow).forEach(row => {
+                row.style.display = '';
+            });
+
+            // Update results message
+            updateResultsMessage(matchingCrops.length, regionFilter);
+        }
+
+        function updateResultsMessage(count, region) {
+            let message = document.getElementById('results-message');
+            if (!message) {
+                message = document.createElement('p');
+                message.id = 'results-message';
+                message.style.textAlign = 'center';
+                message.style.marginTop = '1rem';
+                message.style.color = '#81c784';
+                document.querySelector('.search-filter').appendChild(message);
+            }
+            
+            const regionName = region.charAt(0).toUpperCase() + region.slice(1);
+            message.textContent = `Showing ${count} crops from ${regionName}`;
+        }
+    </script>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-description">
+                <h3>About Rootify</h3>
+                <p>Rootify is a comprehensive agricultural platform designed to empower farmers with modern solutions. We provide essential services including loan assistance, market trend analysis, and disaster management support.</p>
+                <p>Our mission is to bridge the gap between traditional farming and modern technology, ensuring sustainable agricultural practices and improved farmer welfare.</p>
+            </div>
+            <div class="social-links">
+                <h3>Connect With Us</h3>
+                <p>Follow us on social media for updates, tips, and agricultural insights.</p>
+                <div class="social-icons">
+                    <a href="https://facebook.com/rootify" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/rootify" target="_blank" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com/rootify" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://linkedin.com/company/rootify" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://youtube.com/rootify" target="_blank" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Rootify. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

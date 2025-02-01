@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Rootify</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #fff;
+        }
+
+        .contact-container {
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Form Styles */
+        .form-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin: 2rem 0;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #a5d6a7;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid rgba(165, 214, 167, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group select option {
+            background: rgba(44, 85, 48, 0.9);
+            color: white;
+        }
+
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        /* Team Section Styles */
+        .team-section {
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .team-title {
+            text-align: center;
+            color: #a5d6a7;
+            font-size: 2.5rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+            display: inline-block;
+            padding: 0 20px;
+        }
+
+        .team-title:before,
+        .team-title:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 50px;
+            height: 2px;
+            background: #4CAF50;
+            transform: translateY(-50%);
+        }
+
+        .team-title:before {
+            left: -60px;
+        }
+
+        .team-title:after {
+            right: -60px;
+        }
+        body {
+            top: 0 !important;
+        }
+        .footer {
+            background: linear-gradient(to right, var(--primary-dark, #1b5e20), var(--primary, #2e7d32));
+            color: #ffffff;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 4rem;
+            padding: 0 2rem;
+        }
+
+        .footer-description {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .footer-description h3 {
+            color: #81c784;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description p {
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .social-links h3 {
+            color: #81c784;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-3px);
+            background: #81c784;
+            color: #1b5e20;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .social-links, .footer-description {
+                max-width: 100%;
+            }
+        }
+
+        .team-title span {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(120deg, #4CAF50 0%, #a5d6a7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 0 10px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .member-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background-color: rgba(76, 175, 80, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .team-member h3 {
+            color: #a5d6a7;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member p {
+            color: #ffffff;
+            opacity: 0.9;
+        }
+
+        .contact-info {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .contact-info a {
+            color: #a5d6a7;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .team-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            
+            .contact-form {
+                max-width: 90%;
+            }
+
+            .team-title:before,
+            .team-title:after {
+                width: 30px;
+            }
+
+            .team-title:before {
+                left: -40px;
+            }
+
+            .team-title:after {
+                right: -40px;
+            }
+        }
+
+      
+        header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .navbar {
+            background-color: #2e7d32;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar a:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: #a5d6a7;
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover:before {
+            width: 80%;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .navbar a.active {
+            background-color: #4CAF50;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="Home.html" >Home</a>
+        <a href="Loans.html">Loans</a>
+        <a href="MarketTrends.html">Market Trends</a>
+        <a href="DiasaterManagement.html">Claims</a>
+        <a href="Contactus.html" class="active" >Contact</a>
+        <a href="Login.html">Login/Signup</a>
+    </nav>
+    
+    <header>
+        <h1>Contact Us</h1>
+        <p>Get in touch with our agricultural finance experts</p>
+    </header>
+
+    <div class="contact-container">
+
+        <div class="form-wrapper">
+            <div class="contact-form">
+                <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScqFRBu0p0xPT5PZdrmWOyTJrluG7acS-NCNvU5PYStEmgjCg/formResponse" method="POST" target="_blank" onsubmit="return submitForm(this);">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="entry.1572874175" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="entry.973502857" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="entry.1928906346" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="query-type">Type of Query</label>
+                        <select id="query-type" name="entry.231360242_sentinel" required>
+                            <option value="">Select your query type</option>
+                            <option value="loan">Agricultural Loan</option>
+                            <option value="disaster">Disaster Relief</option>
+                            <option value="subsidy">Government Subsidies</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="entry.1931771369" rows="5" required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+
+      
+        <div class="team-section">
+            <h2 class="team-title"><span>Our Team</span></h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">MP</div>
+                    <h3>Mallikarjun Paroji</h3>
+                    <p>Team Lead</p>
+                    <div class="contact-info">
+                        <p>📧 <a href="mailto:mallikarjun@rootify.com">mallikarjun@rootify.com</a></p>
+                        <p>📞 +91 98765 43210</p>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-image">AB</div>
+                    <h3>Ayush Bhandari</h3>
+                    <p>Financial Advisor</p>
+                    <div class="contact-info">
+                        <p>📧 <a href="mailto:ayush@rootify.com">ayush@rootify.com</a></p>
+                        <p>📞 +91 98765 43211</p>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-image">SH</div>
+                    <h3>Sairam Hatti</h3>
+                    <p>Technical Officer</p>
+                    <div class="contact-info">
+                        <p>📧 <a href="mailto:sairam@rootify.com">sairam@rootify.com</a></p>
+                        <p>📞 +91 98765 43212</p>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-image">PS</div>
+                    <h3>Pratik Shetty</h3>
+                    <p>Operations Manager</p>
+                    <div class="contact-info">
+                        <p>📧 <a href="mailto:pratik@rootify.com">pratik@rootify.com</a></p>
+                        <p>📞 +91 98765 43213</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function submitForm(form) {
+        fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            mode: 'no-cors'
+        })
+        .then(response => {
+            alert('Thank you! Your message has been submitted successfully.');
+            form.reset();
+        })
+        .catch(error => {
+            alert('Oops! There was a problem submitting your form. Please try again.');
+        });
+        return false;  
+    }
+    </script>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-description">
+                <h3>About Rootify</h3>
+                <p>Rootify is a comprehensive agricultural platform designed to empower farmers with modern solutions. We provide essential services including loan assistance, market trend analysis, and disaster management support.</p>
+                <p>Our mission is to bridge the gap between traditional farming and modern technology, ensuring sustainable agricultural practices and improved farmer welfare.</p>
+            </div>
+            <div class="social-links">
+                <h3>Connect With Us</h3>
+                <p>Follow us on social media for updates, tips, and agricultural insights.</p>
+                <div class="social-icons">
+                    <a href="https://facebook.com/rootify" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/rootify" target="_blank" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com/rootify" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://linkedin.com/company/rootify" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://youtube.com/rootify" target="_blank" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Rootify. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

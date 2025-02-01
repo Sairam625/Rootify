@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rootify - Grounded Solutions for Farmers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #fff;
+        }
+
+        header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .leaf-icon {
+            color: #a5d6a7;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #a5d6a7;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+         
+        .navbar {
+            background-color: #2e7d32;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar a:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: #a5d6a7;
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover:before {
+            width: 80%;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .navbar a.active {
+            background-color: #4CAF50;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .product-slider {
+           
+            padding: 30px;
+            margin: 2rem auto;
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slider-container {
+            display: flex;
+            animation: slide 15s linear infinite;
+            gap: 20px;
+        }
+
+        .slider-container:hover {
+            animation-play-state: paused;
+        }
+
+        .product-card {
+            min-width: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .product-name {
+            color: #a5d6a7;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .product-trend {
+            color: #4CAF50;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .trend-up::before {
+            content: '↑';
+        }
+
+        .trend-down::before {
+            content: '↓';
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 1.5rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .block {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.8rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .block:hover {
+            transform: translateY(-3px);
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .block h2 {
+            color: #a5d6a7;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        .block p {
+            color: #ffffff;
+            line-height: 1.4;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .block-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            color: #a5d6a7;
+        }
+
+        .disaster-icon::before { content: '🚨'; }
+        .loan-icon::before { content: '💰'; }
+        .market-icon::before { content: '📊'; }
+        .history-icon::before { content: '🌾'; }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Clean Google Translate Styles */
+        #google_translate_element {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1001;
+        }
+
+        .goog-te-combo {
+            background-color: rgba(33, 66, 36, 0.95);
+            color: white;
+            border-radius: 25px;
+            padding: 0.7rem 1.5rem;
+            border: 1px solid rgba(165, 214, 167, 0.3);
+            outline: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            min-width: 160px;
+            transition: all 0.3s ease;
+        }
+
+        .goog-te-combo:hover {
+            background-color: rgba(76, 175, 80, 0.9);
+            border-color: rgba(165, 214, 167, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        
+        .goog-logo-link {
+            display: none !important;
+        }
+
+        .goog-te-banner-frame,
+        .goog-te-gadget-icon,
+        .goog-te-menu-value span {
+            display: none !important;
+        }
+
+        .goog-te-gadget {
+            color: transparent !important;
+        }
+
+        
+        body {
+            top: 0 !important;
+        }
+        .footer {
+            background: linear-gradient(to right, var(--primary-dark, #1b5e20), var(--primary, #2e7d32));
+            color: #ffffff;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 4rem;
+            padding: 0 2rem;
+        }
+
+        .footer-description {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .footer-description h3 {
+            color: #81c784;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description p {
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .social-links h3 {
+            color: #81c784;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-3px);
+            background: #81c784;
+            color: #1b5e20;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .social-links, .footer-description {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span class="leaf-icon">🌱</span>Rootify</h1>
+        <div class="tagline">Grounded Solutions for Farmers</div>
+    </header>
+
+ 
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'hi,mr,kn,ta,te,ml,gu,bn,pa,ur,or,as,en',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <nav class="navbar">
+        <a href="Home.html" class="active">Home</a>
+        <a href="Loans.html">Loans</a>
+        <a href="MarketTrends.html">Market Trends</a>
+        <a href="D">Claims</a>
+        <a href="Contactus.html">Contact</a>
+        <a href="Login.html">Login/Signup</a>
+    </nav>
+
+    <div class="product-slider">
+        <div class="slider-container">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1580984969071-a8da5656c2fb" alt="Coconut" class="product-image">
+                <div class="product-name">Coconut</div>
+                <div class="product-price">₹25/kg</div>
+                <div class="product-trend trend-down">-1.2%</div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c" alt="Rice" class="product-image">
+                <div class="product-name">Rice</div>
+                <div class="product-price">₹45/kg</div>
+                <div class="product-trend trend-up">+1.8%</div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b" alt="Wheat" class="product-image">
+                <div class="product-name">Wheat</div>
+                <div class="product-price">₹32/kg</div>
+                <div class="product-trend trend-down">-0.5%</div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://i.pinimg.com/736x/81/e3/2e/81e32e1e8ec611c2d1ecdb32bc583713.jpg" alt="Sugarcane" class="product-image">
+                <div class="product-name">Sugarcane</div>
+                <div class="product-price">₹38/kg</div>
+                <div class="product-trend trend-up">+3.2%</div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://i.pinimg.com/736x/33/68/c8/3368c832358cf7a180018a23b684ad15.jpg" alt="Cotton" class="product-image">
+                <div class="product-name">Cotton</div>
+                <div class="product-price">₹60/kg</div>
+                <div class="product-trend trend-up">+2.5%</div>
+            </div>
+
+            <!-- Duplicate cards with same prices -->
+            <div class="product-card">
+                <img src="https://images.meesho.com/images/products/221215956/zhro7_512.webp" alt="Jawar" class="product-image">
+                <div class="product-name">Jawar</div>
+                <div class="product-price">₹28/kg</div>
+                <div class="product-trend trend-up">+1.2%</div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1533231040102-5ec7a63e6d0a" alt="Beetroot" class="product-image">
+                <div class="product-name">Beetroot</div>
+                <div class="product-price">₹35/kg</div>
+                <div class="product-trend trend-up">+2.1%</div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://i.pinimg.com/736x/41/b5/17/41b517bf3a8ff790211037318ac473b9.jpg" alt="Brinjal" class="product-image">
+                <div class="product-name">Brinjal</div>
+                <div class="product-price">₹40/kg</div>
+                <div class="product-trend trend-down">-0.8%</div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://5.imimg.com/data5/SELLER/Default/2023/4/300591091/OD/NJ/XF/93882910/fresh-green-betel-nuts-500x500.jpg" alt="Beetlenut" class="product-image">
+                <div class="product-name">Beetlenut</div>
+                <div class="product-price">₹350/kg</div>
+                <div class="product-trend trend-up">+4.5%</div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1580984969071-a8da5656c2fb" alt="Coconut" class="product-image">
+                <div class="product-name">Coconut</div>
+                <div class="product-price">₹25/kg</div>
+                <div class="product-trend trend-down">-1.2%</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <a href="DiasaterManagement.html" class="block">
+            <div class="block-icon disaster-icon"></div>
+            <h2>Disaster Management</h2>
+            <p>Get real-time alerts and guidance for managing agricultural disasters.</p>
+        </a>
+
+        <a href="Loans.html" class="block">
+            <div class="block-icon loan-icon"></div>
+            <h2>Loans & Subsidies</h2>
+            <p>Explore available agricultural loans and government subsidies.</p>
+        </a>
+
+        <a href="MarketTrends.html" class="block">
+            <div class="block-icon market-icon"></div>
+            <h2>Market Rates</h2>
+            <p>Live market prices for crops, vegetables, and fruits.</p>
+        </a>
+
+        <a href="CropHistory.html" class="block">
+            <div class="block-icon history-icon"></div>
+            <h2>Crop Yeild</h2>
+            <p>Checkout the requirements to grow the crops.</p>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.slider-container');
+            slider.innerHTML += slider.innerHTML;
+        });
+    </script>
+     <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-description">
+                <h3>About Rootify</h3>
+                <p>Rootify is a comprehensive agricultural platform designed to empower farmers with modern solutions. We provide essential services including loan assistance, market trend analysis, and disaster management support.</p>
+                <p>Our mission is to bridge the gap between traditional farming and modern technology, ensuring sustainable agricultural practices and improved farmer welfare.</p>
+            </div>
+            <div class="social-links">
+                <h3>Connect With Us</h3>
+                <p>Follow us on social media for updates, tips, and agricultural insights.</p>
+                <div class="social-icons">
+                    <a href="https://facebook.com/rootify" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/rootify" target="_blank" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com/rootify" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://linkedin.com/company/rootify" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://youtube.com/rootify" target="_blank" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Rootify. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

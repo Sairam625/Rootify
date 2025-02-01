@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Trends - Rootify</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --primary-light: #4caf50;
+            --primary-dark: #1b5e20;
+            --accent: #81c784;
+            --text-dark: #1c2833;
+            --text-light: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        .navbar a.active {
+            background-color: #4CAF50;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+        }
+        header {
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+            color: var(--text-light);
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .graph-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            height: 400px;
+        }
+
+        .market-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .summary-card h3 {
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-value {
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .market-column {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .market-column h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .market-item {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .market-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .market-item h3 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .market-item p {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .trend-indicator {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .trend-up {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .trend-down {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .state-selector {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        body {
+            top: 0 !important;
+        }
+        .footer {
+            background: linear-gradient(to right, var(--primary-dark, #1b5e20), var(--primary, #2e7d32));
+            color: #ffffff;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 4rem;
+            padding: 0 2rem;
+        }
+
+        .footer-description {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .footer-description h3 {
+            color: #81c784;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description p {
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .social-links h3 {
+            color: #81c784;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-3px);
+            background: #81c784;
+            color: #1b5e20;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .social-links, .footer-description {
+                max-width: 100%;
+            }
+        }
+        .state-selector select {
+            width: 350px;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            background: var(--card-bg);
+            color: var(--text-dark);
+            border: 2px solid var(--primary);
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .state-selector select:hover {
+            transform: translateY(-2px);
+        }
+
+        .state-selector select option {
+            background: var(--card-bg);
+            color: var(--text-dark);
+            padding: 8px 12px;
+        }
+
+        .state-selector select option[value="Andaman and Nicobar Islands"] {
+            border-top: 1px solid var(--primary);
+            margin-top: 8px;
+            padding-top: 8px;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .loading::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--primary);
+            border-top: 3px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .market-grid, .market-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .state-selector select {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="Home.html">Home</a>
+        <a href="Loans.html">Loans</a>
+        <a href="marketTrends.html" class="active">Market Trends</a>
+        <a href="DiasaterManagement.html">Claims</a>
+        <a href="Contactus.html">Contact</a>
+        <a href="Login.html">Login/Signup</a>
+    </nav>
+
+    <header>
+        <h1>Agricultural Market Trends</h1>
+        <p>Stay updated with current market trends and rates</p>
+    </header>
+
+    <div class="container">
+        <div class="state-selector">
+            <select id="stateSelect" onchange="updateStateRates()">
+                <option value="">Select State</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+                <!-- Union Territories -->
+                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                <option value="Daman and Diu">Daman and Diu</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                <option value="Ladakh">Ladakh</option>
+                <option value="Lakshadweep">Lakshadweep</option>
+                <option value="Puducherry">Puducherry</option>
+            </select>
+        </div>
+
+        <div id="stateAnalysis" class="hidden">
+            <div class="graph-container">
+                <canvas id="priceChart"></canvas>
+            </div>
+            <div class="market-summary">
+                <div class="summary-card">
+                    <h3>Average Price Change</h3>
+                    <div class="summary-value" id="avgPriceChange">+8.5%</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Trading Volume</h3>
+                    <div class="summary-value" id="tradingVolume">₹82.5Cr</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Market Status</h3>
+                    <div class="summary-value" id="marketStatus">Active</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="stateRatesContent" class="market-grid hidden">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        function updateStateRates() {
+            const stateSelect = document.getElementById('stateSelect');
+            const stateRatesContent = document.getElementById('stateRatesContent');
+            const stateAnalysis = document.getElementById('stateAnalysis');
+            const selectedState = stateSelect.value;
+
+            if (!selectedState) {
+                stateRatesContent.classList.add('hidden');
+                stateAnalysis.classList.add('hidden');
+                return;
+            }
+
+            stateRatesContent.innerHTML = '<div class="loading">Loading market rates...</div>';
+            stateRatesContent.classList.remove('hidden');
+            stateAnalysis.classList.remove('hidden');
+
+            const historicalData = generateHistoricalData();
+            updatePriceChart(historicalData, selectedState);
+
+            setTimeout(() => {
+                const stateData = generateStateData();
+                updateStateContent(stateData);
+            }, 1000);
+        }
+
+        function generateHistoricalData() {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June'];
+            return {
+                wheat: months.map(() => getRandomPrice(2000, 2500)),
+                rice: months.map(() => getRandomPrice(3000, 3500)),
+                corn: months.map(() => getRandomPrice(1800, 2200))
+            };
+        }
+
+        function updatePriceChart(data, stateName) {
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                    datasets: [
+                        {
+                            label: 'Wheat (₹/quintal)',
+                            data: data.wheat,
+                            borderColor: '#2e7d32',
+                            backgroundColor: 'rgba(46, 125, 50, 0.1)',
+                            fill: true
+                        },
+                        {
+                            label: 'Rice (₹/quintal)',
+                            data: data.rice,
+                            borderColor: '#1976d2',
+                            backgroundColor: 'rgba(25, 118, 210, 0.1)',
+                            fill: true
+                        },
+                        {
+                            label: 'Corn (₹/quintal)',
+                            data: data.corn,
+                            borderColor: '#ed6c02',
+                            backgroundColor: 'rgba(237, 108, 2, 0.1)',
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: `Price Trends in ${stateName}`,
+                            font: { size: 16 }
+                        },
+                        legend: {
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function generateStateData() {
+            return {
+                crops: {
+                    wheat: { current: getRandomPrice(2000, 2500), previous: getRandomPrice(1800, 2300) },
+                    rice: { current: getRandomPrice(3000, 3500), previous: getRandomPrice(2800, 3300) },
+                    corn: { current: getRandomPrice(1800, 2200), previous: getRandomPrice(1600, 2000) }
+                },
+                vegetables: {
+                    tomatoes: { current: getRandomPrice(30, 50), previous: getRandomPrice(25, 45) },
+                    potatoes: { current: getRandomPrice(20, 30), previous: getRandomPrice(15, 25) },
+                    onions: { current: getRandomPrice(25, 35), previous: getRandomPrice(20, 30) }
+                }
+            };
+        }
+
+        function updateStateContent(data) {
+            const html = `
+                <div class="market-column">
+                    <h2>Crop Rates</h2>
+                    ${generateRateCards(data.crops, 'quintal')}
+                </div>
+                <div class="market-column">
+                    <h2>Vegetable Rates</h2>
+                    ${generateRateCards(data.vegetables, 'kg')}
+                </div>
+            `;
+            document.getElementById('stateRatesContent').innerHTML = html;
+        }
+
+        function generateRateCards(data, unit) {
+            return Object.entries(data).map(([item, prices]) => {
+                const trend = prices.current > prices.previous ? 'trend-up' : 'trend-down';
+                const arrow = prices.current > prices.previous ? '↑' : '↓';
+                const percentage = ((prices.current - prices.previous) / prices.previous * 100).toFixed(1);
+                return `
+                    <div class="market-item">
+                        <h3>${capitalizeFirstLetter(item)} 
+                            <span class="trend-indicator ${trend}">${arrow} ${Math.abs(percentage)}%</span>
+                        </h3>
+                        <p>Current Rate: ₹${prices.current}/${unit}</p>
+                        <p>Last Week: ₹${prices.previous}/${unit}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getRandomPrice(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+    </script>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-description">
+                <h3>About Rootify</h3>
+                <p>Rootify is a comprehensive agricultural platform designed to empower farmers with modern solutions. We provide essential services including loan assistance, market trend analysis, and disaster management support.</p>
+                <p>Our mission is to bridge the gap between traditional farming and modern technology, ensuring sustainable agricultural practices and improved farmer welfare.</p>
+            </div>
+            <div class="social-links">
+                <h3>Connect With Us</h3>
+                <p>Follow us on social media for updates, tips, and agricultural insights.</p>
+                <div class="social-icons">
+                    <a href="https://facebook.com/rootify" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/rootify" target="_blank" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com/rootify" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://linkedin.com/company/rootify" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://youtube.com/rootify" target="_blank" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Rootify. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

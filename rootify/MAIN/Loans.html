@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Loans - Rootify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            min-height: calc(100vh - 60px);
+        }
+
+        h1 {
+            text-align: center;
+            color: #a5d6a7;
+            margin: 30px 0;
+            font-size: 2.5em;
+        }
+
+        .loans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .loan-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(165, 214, 167, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loan-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .loan-card h3 {
+            color: #a5d6a7;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            position: relative;
+        }
+
+        .loan-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4CAF50;
+            transition: width 0.3s ease;
+        }
+
+        .loan-card:hover h3::after {
+            width: 100%;
+        }
+
+        .loan-card a {
+            color: #ffffff;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background: rgba(76, 175, 80, 0.3);
+        }
+
+        .loan-card a:hover {
+            background: rgba(76, 175, 80, 0.5);
+            transform: translateX(5px);
+        }
+
+        .navbar {
+            background-color:#2e7d32;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar a:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: #a5d6a7;
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover:before {
+            width: 80%;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .navbar a.active {
+            background-color: #4CAF50;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .loans-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .filter-section {
+            max-width: 600px;
+            margin: 2rem auto;
+            display: flex;
+            gap: 1rem;
+            padding: 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(165, 214, 167, 0.3);
+        }
+
+        .filter-section select {
+            width: 200px;
+        }
+
+
+
+        body {
+            top: 0 !important;
+        }
+        .footer {
+            background: linear-gradient(to right, var(--primary-dark, #1b5e20), var(--primary, #2e7d32));
+            color: #ffffff;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 4rem;
+            padding: 0 2rem;
+        }
+
+        .footer-description {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .footer-description h3 {
+            color: #81c784;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description p {
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .social-links h3 {
+            color: #81c784;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-3px);
+            background: #81c784;
+            color: #1b5e20;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .social-links, .footer-description {
+                max-width: 100%;
+            }
+        }
+        .filter-section select, .search-box input {
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(165, 214, 167, 0.2);
+        }
+
+        .filter-section select::placeholder,
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-box {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding-right: 2.5rem;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            pointer-events: none;
+        }
+
+        .loan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .loan-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .loan-card .state-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 0.3rem 0.6rem;
+            background: rgba(76, 175, 80, 0.2);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #a5d6a7;
+        }
+
+        .loan-card {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .filter-section {
+                flex-direction: column;
+                max-width: 100%;
+                padding: 1rem;
+            }
+
+            .filter-section select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="Home.html">Home</a>
+        <a href="Loans.html" class="active" >Loans</a>
+        <a href="marketTrends.html">Market Trends</a>
+        <a href="DisasterManagement.html">claims</a>
+        <a href="Contactus.html">Contact</a>
+        <a href="Login.html">Login/Signup</a>
+    </nav>
+
+    <div class="container">
+        <h1>Agricultural Loan Schemes</h1>
+        
+        <div class="filter-section">
+            <select id="stateFilter" onchange="filterLoans()">
+                <option value="all">All States</option>
+                <option value="AP">Andhra Pradesh</option>
+                <option value="AR">Arunachal Pradesh</option>
+                <option value="AS">Assam</option>
+                <option value="BR">Bihar</option>
+                <option value="CG">Chhattisgarh</option>
+                <option value="GA">Goa</option>
+                <option value="GJ">Gujarat</option>
+                <option value="HR">Haryana</option>
+                <option value="HP">Himachal Pradesh</option>
+                <option value="JH">Jharkhand</option>
+                <option value="KA">Karnataka</option>
+                <option value="KL">Kerala</option>
+                <option value="MP">Madhya Pradesh</option>
+                <option value="MH">Maharashtra</option>
+                <option value="MN">Manipur</option>
+                <option value="ML">Meghalaya</option>
+                <option value="MZ">Mizoram</option>
+                <option value="NL">Nagaland</option>
+                <option value="OR">Odisha</option>
+                <option value="PB">Punjab</option>
+                <option value="RJ">Rajasthan</option>
+                <option value="SK">Sikkim</option>
+                <option value="TN">Tamil Nadu</option>
+                <option value="TG">Telangana</option>
+                <option value="TR">Tripura</option>
+                <option value="UP">Uttar Pradesh</option>
+                <option value="UK">Uttarakhand</option>
+                <option value="WB">West Bengal</option>
+            </select>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search loans..." onkeyup="filterLoans()">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </div>
+
+        <div class="loans-grid">
+            <div class="loan-card">
+                <h3>Kisan Credit Card (KCC) Scheme</h3>
+                <a href="https://ahvs.karnataka.gov.in/info-2/Schemes%2B%26%2BBenefits/en" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>Agriculture Gold Loan & Special Gold Loan</h3>
+                <a href="https://karnatakagraminbank.com/banking-proserv/agriculture-loans" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>Agriculture Marketing Infrastructure (AMI/Godown)</h3>
+                <a href="https://karnatakagraminbank.com/banking-proserv/agriculture-loans" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>Dairy Entrepreneurship Development Scheme (DEDS)</h3>
+                <a href="https://karnatakagraminbank.com/banking-proserv/agriculture-loans" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>National Livestock Mission (NLM)</h3>
+                <a href="https://karnatakagraminbank.com/banking-proserv/agriculture-loans" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>Agri-Clinics and Agri-Business Centres</h3>
+                <a href="https://karnatakagraminbank.com/banking-proserv/agriculture-loans" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>Shreyas Agriculture Loan</h3>
+                <a href="https://karnatakagraminbank.com/banking-proserv/agriculture-loans" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>Interest Subsidy Scheme</h3>
+                <a href="https://www.karnatakaapex.in/new/index.php/en/agriculture-finance/interest-subsidy-scheme/introduction" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>Pashu Bhagya Scheme</h3>
+                <a href="https://ahvs.karnataka.gov.in/info-2/Schemes%2B%26%2BBenefits/en" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>Mahabank Kisan Credit Card (MKCC)</h3>
+                <a href="https://bankofmaharashtra.in/agricultures" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>Mahabank Kisan All Purpose Term Loan</h3>
+                <a href="https://bankofmaharashtra.in/kisan-all-purpose-term-loan" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>Mahabank Gold Loan Scheme</h3>
+                <a href="https://bankofmaharashtra.in/agricultures" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>Construction of Farmhouse Scheme</h3>
+                <a href="https://bankofmaharashtra.in/agricultures" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>Financing Farmers for Vehicle Purchase</h3>
+                <a href="https://bankofmaharashtra.in/agricultures" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>State Agriculture Mechanization Scheme</h3>
+                <a href="https://mahadbt.maharashtra.gov.in/Farmer/SchemeData/SchemeData?str=E9DDFA703C38E51A147B39AD4D6A9082" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>CM Sustainable Agriculture Irrigation Scheme</h3>
+                <a href="https://www.myscheme.gov.in/schemes/chief-minister-sustainable-agriculture-irrigation-scheme" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>Agricultural Produce Pledge Loan Scheme</h3>
+                <a href="https://www.msamb.com/schemes/pledgefinance" target="_blank">Learn More →</a>
+            </div>
+
+            <div class="loan-card">
+                <h3>District Level Animal Husbandry Schemes</h3>
+                <a href="https://dahd.maharashtra.gov.in/en/scheme/district-level-schemes" target="_blank">Learn More →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Define loan schemes with their respective states
+        const loanSchemes = {
+            'Kisan Credit Card (KCC) Scheme': {
+                states: 'ALL',
+                link: 'https://www.nabard.org/content1.aspx?id=1720&catid=23&mid=530'
+            },
+            'Agriculture Gold Loan': {
+                states: 'KA,TN,KL,AP,TG',
+                link: 'https://karnatakagraminbank.com/banking-proserv/agriculture-loans'
+            },
+            'Agriculture Marketing Infrastructure': {
+                states: 'MH,GJ,MP,UP',
+                link: 'https://mahadbt.maharashtra.gov.in/'
+            },
+            'Dairy Entrepreneurship Development Scheme': {
+                states: 'HR,PB,RJ,UP',
+                link: 'https://dahd.nic.in/schemes/programmes/dairy-entrepreneurship-development-scheme'
+            },
+            'National Livestock Mission': {
+                states: 'ALL',
+                link: 'https://dahd.nic.in/schemes/programmes/national-livestock-mission'
+            },
+            'Agri-Clinics and Agri-Business Centres': {
+                states: 'MH,KA,TN,AP',
+                link: 'https://acabcmis.gov.in/'
+            },
+            'Shreyas Agriculture Loan': {
+                states: 'KA,KL',
+                link: 'https://karnatakagraminbank.com/'
+            },
+            'Interest Subsidy Scheme': {
+                states: 'KA,MH,GJ',
+                link: 'https://www.karnatakaapex.in/'
+            },
+            'Pashu Bhagya Scheme': {
+                states: 'KA,TG',
+                link: 'https://ahvs.karnataka.gov.in/'
+            },
+            'Kisan Credit Card': {
+                states: 'MH,MP,CG',
+                link: 'https://bankofmaharashtra.in/'
+            },
+            'Farm Mechanization Scheme': {
+                states: 'PB,HR,UP,MP',
+                link: 'https://agrimachinery.nic.in/'
+            },
+            'Micro Irrigation Fund Scheme': {
+                states: 'GJ,RJ,MH,MP',
+                link: 'https://pmksy.gov.in/'
+            },
+            'Organic Farming Scheme': {
+                states: 'SK,UK,HP,AR',
+                link: 'https://pgsindia-ncof.gov.in/'
+            },
+            'Fisheries Development Scheme': {
+                states: 'KL,WB,OR,TN',
+                link: 'https://fisheries.gov.in/'
+            },
+            'Soil Health Card Scheme': {
+                states: 'ALL',
+                link: 'https://soilhealth.dac.gov.in/'
+            },
+            'PM Kisan Samman Nidhi': {
+                states: 'ALL',
+                link: 'https://pmkisan.gov.in/'
+            },
+            'Agricultural Infrastructure Fund': {
+                states: 'ALL',
+                link: 'https://agriinfra.dac.gov.in/'
+            },
+            'Pradhan Mantri Fasal Bima Yojana': {
+                states: 'ALL',
+                link: 'https://pmfby.gov.in/'
+            }
+        };
+
+        // Create loan cards dynamically
+        const loansGrid = document.querySelector('.loans-grid');
+        loansGrid.innerHTML = ''; // Clear existing cards
+
+        Object.entries(loanSchemes).forEach(([name, details]) => {
+            const card = document.createElement('div');
+            card.className = 'loan-card';
+            card.setAttribute('data-states', details.states);
+
+            const stateTag = document.createElement('span');
+            stateTag.className = 'state-tag';
+            stateTag.textContent = details.states === 'ALL' ? 'All States' : 
+                details.states.split(',').length + ' States';
+
+            const title = document.createElement('h3');
+            title.textContent = name;
+
+            const link = document.createElement('a');
+            link.href = details.link;
+            link.target = '_blank';
+            link.textContent = 'Apply Now →';
+
+            card.appendChild(stateTag);
+            card.appendChild(title);
+            card.appendChild(link);
+            loansGrid.appendChild(card);
+        });
+
+        function filterLoans() {
+            const stateFilter = document.getElementById('stateFilter').value;
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            
+            document.querySelectorAll('.loan-card').forEach(card => {
+                const states = card.getAttribute('data-states').split(',');
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                
+                const matchesState = stateFilter === 'all' || states.includes(stateFilter) || states.includes('ALL');
+                const matchesSearch = title.includes(searchText);
+                
+                if (matchesState && matchesSearch) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-description">
+                <h3>About Rootify</h3>
+                <p>Rootify is a comprehensive agricultural platform designed to empower farmers with modern solutions. We provide essential services including loan assistance, market trend analysis, and disaster management support.</p>
+                <p>Our mission is to bridge the gap between traditional farming and modern technology, ensuring sustainable agricultural practices and improved farmer welfare.</p>
+            </div>
+            <div class="social-links">
+                <h3>Connect With Us</h3>
+                <p>Follow us on social media for updates, tips, and agricultural insights.</p>
+                <div class="social-icons">
+                    <a href="https://facebook.com/rootify" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/rootify" target="_blank" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com/rootify" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://linkedin.com/company/rootify" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://youtube.com/rootify" target="_blank" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Rootify. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

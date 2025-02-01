@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Management - Rootify</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth; /* For smooth scrolling */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #fff;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color:#2e7d32;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar a:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: #a5d6a7;
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover:before {
+            width: 80%;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .navbar a.active {
+            background-color: #4CAF50;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Header Styles */
+        header {
+            background-color:#2e7d32;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #a5d6a7;
+        }
+
+        /* Main Content Styles */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            color: #a5d6a7;
+            font-size: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+            padding-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #4CAF50;
+        }
+
+        body {
+            top: 0 !important;
+        }
+        .footer {
+            background: linear-gradient(to right, var(--primary-dark, #1b5e20), var(--primary, #2e7d32));
+            color: #ffffff;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 4rem;
+            padding: 0 2rem;
+        }
+
+        .footer-description {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .footer-description h3 {
+            color: #81c784;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description p {
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .social-links h3 {
+            color: #81c784;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-3px);
+            background: #81c784;
+            color: #1b5e20;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .social-links, .footer-description {
+                max-width: 100%;
+            }
+        }
+        /* New Road Map Styles */
+        .claims-process {
+            max-width: 1000px;
+            margin: 4rem auto;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .claims-process::before {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: #4CAF50;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+
+        .step-card {
+            width: calc(50% - 30px);
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .step-card:nth-child(odd) {
+            margin-left: auto;
+            padding-left: 40px;
+        }
+
+        .step-card:nth-child(even) {
+            padding-right: 40px;
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #4CAF50;
+            border-radius: 50%;
+            top: 20px;
+        }
+
+        .step-card:nth-child(odd)::before {
+            left: -10px;
+        }
+
+        .step-card:nth-child(even)::before {
+            right: -10px;
+        }
+
+        .step-card::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background: #4CAF50;
+            top: 29px;
+        }
+
+        .step-card:nth-child(odd)::after {
+            left: 0;
+        }
+
+        .step-card:nth-child(even)::after {
+            right: 0;
+        }
+
+        .step-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(165, 214, 167, 0.3);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .step-content:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            background: #4CAF50;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .step-card:nth-child(odd) .step-number {
+            left: 20px;
+        }
+
+        .step-card:nth-child(even) .step-number {
+            right: 20px;
+        }
+
+        .step-header {
+            margin-top: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .step-header h3 {
+            color: #a5d6a7;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .contact-method {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .required-docs {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .required-docs ul {
+            list-style-type: none;
+            margin-top: 0.5rem;
+        }
+
+        .required-docs li {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .required-docs li:before {
+            content: '✓';
+            color: #4CAF50;
+            position: absolute;
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .claims-process::before {
+                left: 30px;
+            }
+
+            .step-card {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+                padding-left: 20px !important;
+                padding-right: 0 !important;
+            }
+
+            .step-card::before {
+                left: -30px !important;
+            }
+
+            .step-card::after {
+                left: -20px !important;
+                width: 20px;
+            }
+
+            .step-card .step-number {
+                left: -45px !important;
+            }
+        }
+
+        /* Disaster Types Section */
+        .disaster-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .disaster-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(165, 214, 167, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .disaster-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .disaster-card h3 {
+            color: #a5d6a7;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .disaster-card p {
+            color: #fff;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .coverage-info {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(165, 214, 167, 0.3);
+        }
+
+        .coverage-info strong {
+            color: #a5d6a7;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="Home.html">Home</a>
+        <a href="Loans.html">Loans</a>
+        <a href="marketTrends.html">Market Trends</a>
+        <a href="DiasaterManagement.html" class="active">Claims</a>
+        <a href="Contactus.html">Contact</a>
+        <a href="Login.html">Login/Signup</a>
+    </nav>
+
+    <header>
+        <h1>Disaster Management & Insurance Claims</h1>
+        <p>Protecting your agricultural investments against natural disasters</p>
+    </header>
+
+    <div class="container">
+        <!-- Claims Process Section -->
+        <h2 class="section-title">Insurance Claims Process</h2>
+        <div class="claims-process">
+            <div class="step-card">
+                <div class="step-content">
+                    <div class="step-number">1</div>
+                    <div class="step-header">
+                        <h3>Report the Incident</h3>
+                        <p>Contact Rootify's disaster management team within 48 hours of the incident.</p>
+                    </div>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <h4>24/7 Helpline</h4>
+                            <p>1800-123-4567</p>
+                        </div>
+                        <div class="contact-method">
+                            <h4>WhatsApp</h4>
+                            <p>+91 98765-43210</p>
+                        </div>
+                        <div class="contact-method">
+                            <h4>Email</h4>
+                            <p>claims@rootify.com</p>
+                        </div>
+                    </div>
+
+                    <div class="required-docs">
+                        <h4>Initial Documentation Needed:</h4>
+                        <ul>
+                            <li>Clear photographs of damaged crops</li>
+                            <li>Video evidence of the damage</li>
+                            <li>Date and time of the incident</li>
+                            <li>Brief description of the damage</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-content">
+                    <div class="step-number">2</div>
+                    <div class="step-header">
+                        <h3>Assessment</h3>
+                        <p>Our field officers will visit your farm to assess the damage and prepare a detailed report.</p>
+                    </div>
+                    <div class="timeline">
+                        <h4>Assessment Process:</h4>
+                        <div class="timeline-item">Field officer assigned within 24 hours</div>
+                        <div class="timeline-item">Site visit scheduled within 48-72 hours</div>
+                        <div class="timeline-item">Detailed damage assessment conducted</div>
+                        <div class="timeline-item">Preliminary report generated</div>
+                        <div class="timeline-item">Damage estimation provided</div>
+                    </div>
+
+                    <div class="required-docs">
+                        <h4>Keep Ready:</h4>
+                        <ul>
+                            <li>Land ownership documents</li>
+                            <li>Previous crop history</li>
+                            <li>Insurance policy details</li>
+                            <li>Recent farming receipts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-content">
+                    <div class="step-number">3</div>
+                    <div class="step-header">
+                        <h3>Documentation</h3>
+                        <p>Submit required documents including land records, previous crop records, and proof of insurance premium payment.</p>
+                    </div>
+                    <div class="required-docs">
+                        <h4>Required Documents:</h4>
+                        <ul>
+                            <li>Land ownership documents</li>
+                            <li>Previous crop history</li>
+                            <li>Insurance policy details</li>
+                            <li>Proof of insurance premium payment</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-content">
+                    <div class="step-number">4</div>
+                    <div class="step-header">
+                        <h3>Claim Processing</h3>
+                        <p>Our team processes your claim within 7-10 working days. Track your claim status through our mobile app or website.</p>
+                    </div>
+                    <div class="timeline">
+                        <h4>Claim Processing Timeline:</h4>
+                        <div class="timeline-item">Claim received within 48 hours</div>
+                        <div class="timeline-item">Assessment conducted within 72 hours</div>
+                        <div class="timeline-item">Claim processing initiated</div>
+                        <div class="timeline-item">Regular updates provided</div>
+                        <div class="timeline-item">Final settlement</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-content">
+                    <div class="step-number">5</div>
+                    <div class="step-header">
+                        <h3>Settlement</h3>
+                        <p>Once approved, claim amount is directly transferred to your registered bank account within 48 hours.</p>
+                    </div>
+                    <div class="timeline">
+                        <h4>Settlement Timeline:</h4>
+                        <div class="timeline-item">Approval within 7 working days</div>
+                        <div class="timeline-item">Funds transferred within 48 hours</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disaster Types Section -->
+        <h2 class="section-title">Covered Disaster Types</h2>
+        <div class="disaster-types">
+            <div class="disaster-card">
+                <h3>🌧️ Flood Damage</h3>
+                <p>Coverage for crop damage due to floods, excessive rainfall, and water logging.</p>
+                <div class="coverage-info">
+                    <strong>Coverage:</strong> Up to ₹50,000 per acre
+                    <br>
+                    <strong>Waiting Period:</strong> None for natural floods
+                </div>
+            </div>
+
+            <div class="disaster-card">
+                <h3>🌪️ Storm & Cyclone</h3>
+                <p>Protection against damage caused by storms, cyclones, and strong winds.</p>
+                <div class="coverage-info">
+                    <strong>Coverage:</strong> Up to ₹75,000 per acre
+                    <br>
+                    <strong>Waiting Period:</strong> None for natural disasters
+                </div>
+            </div>
+
+            <div class="disaster-card">
+                <h3>☀️ Drought</h3>
+                <p>Compensation for crop failure due to insufficient rainfall and drought conditions.</p>
+                <div class="coverage-info">
+                    <strong>Coverage:</strong> Up to ₹40,000 per acre
+                    <br>
+                    <strong>Waiting Period:</strong> 15 days from policy start
+                </div>
+            </div>
+
+            <div class="disaster-card">
+                <h3>🌡️ Extreme Temperature</h3>
+                <p>Coverage for damage due to extreme heat waves or frost conditions.</p>
+                <div class="coverage-info">
+                    <strong>Coverage:</strong> Up to ₹35,000 per acre
+                    <br>
+                    <strong>Waiting Period:</strong> None for natural occurrences
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.step-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.closest('.step-card');
+                card.classList.toggle('active');
+            });
+        });
+    </script>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-description">
+                <h3>About Rootify</h3>
+                <p>Rootify is a comprehensive agricultural platform designed to empower farmers with modern solutions. We provide essential services including loan assistance, market trend analysis, and disaster management support.</p>
+                <p>Our mission is to bridge the gap between traditional farming and modern technology, ensuring sustainable agricultural practices and improved farmer welfare.</p>
+            </div>
+            <div class="social-links">
+                <h3>Connect With Us</h3>
+                <p>Follow us on social media for updates, tips, and agricultural insights.</p>
+                <div class="social-icons">
+                    <a href="https://facebook.com/rootify" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/rootify" target="_blank" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com/rootify" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://linkedin.com/company/rootify" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://youtube.com/rootify" target="_blank" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Rootify. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
