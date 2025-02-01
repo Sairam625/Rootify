@@ -47,38 +47,52 @@
         }
 
         .loan-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(165, 214, 167, 0.3);
-            position: relative;
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .loan-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+            border-color: rgba(165, 214, 167, 0.5);
+        }
+
+        .loan-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+            transition: all 0.4s ease;
+        }
+
+        .loan-content {
+            padding: 20px;
         }
 
         .loan-card h3 {
-            color: #a5d6a7;
+            color: #e8f5e9;
+            font-size: 1.3em;
             margin-bottom: 15px;
-            font-size: 1.2em;
             position: relative;
+            padding-bottom: 10px;
         }
 
         .loan-card h3::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
-            width: 0;
-            height: 2px;
-            background: #4CAF50;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, #4CAF50, #81C784);
             transition: width 0.3s ease;
         }
 
@@ -86,20 +100,33 @@
             width: 100%;
         }
 
+        .state-tag {
+            background: linear-gradient(45deg, rgba(76, 175, 80, 0.2), rgba(129, 199, 132, 0.2));
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            color: #a5d6a7;
+            display: inline-block;
+            margin-bottom: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         .loan-card a {
+            background: linear-gradient(45deg, rgba(76, 175, 80, 0.3), rgba(129, 199, 132, 0.3));
             color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 25px;
             text-decoration: none;
             display: inline-block;
-            margin-top: 10px;
-            font-weight: 500;
+            margin-top: 15px;
             transition: all 0.3s ease;
-            padding: 5px 10px;
-            border-radius: 5px;
-            background: rgba(76, 175, 80, 0.3);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .loan-card a:hover {
-            background: rgba(76, 175, 80, 0.5);
+            background: linear-gradient(45deg, rgba(76, 175, 80, 0.5), rgba(129, 199, 132, 0.5));
             transform: translateX(5px);
         }
 
@@ -483,36 +510,6 @@
                 <h3>Mahabank Gold Loan Scheme</h3>
                 <a href="https://bankofmaharashtra.in/agricultures" target="_blank">Learn More →</a>
             </div>
-
-            <div class="loan-card">
-                <h3>Construction of Farmhouse Scheme</h3>
-                <a href="https://bankofmaharashtra.in/agricultures" target="_blank">Learn More →</a>
-            </div>
-
-            <div class="loan-card">
-                <h3>Financing Farmers for Vehicle Purchase</h3>
-                <a href="https://bankofmaharashtra.in/agricultures" target="_blank">Learn More →</a>
-            </div>
-
-            <div class="loan-card">
-                <h3>State Agriculture Mechanization Scheme</h3>
-                <a href="https://mahadbt.maharashtra.gov.in/Farmer/SchemeData/SchemeData?str=E9DDFA703C38E51A147B39AD4D6A9082" target="_blank">Learn More →</a>
-            </div>
-
-            <div class="loan-card">
-                <h3>CM Sustainable Agriculture Irrigation Scheme</h3>
-                <a href="https://www.myscheme.gov.in/schemes/chief-minister-sustainable-agriculture-irrigation-scheme" target="_blank">Learn More →</a>
-            </div>
-
-            <div class="loan-card">
-                <h3>Agricultural Produce Pledge Loan Scheme</h3>
-                <a href="https://www.myscheme.gov.in/schemes/aif" target="_blank">Learn More →</a>
-            </div>
-
-            <div class="loan-card">
-                <h3>District Level Animal Husbandry Schemes</h3>
-                <a href="https://www.pmfby.gov.in/" target="_blank">Learn More →</a>
-            </div>
         </div>
     </div>
 
@@ -566,34 +563,25 @@
             'Micro Irrigation Fund Scheme': {
                 states: 'GJ,RJ,MH,MP',
                 link: 'https://pmksy.gov.in/'
-            },
-            'Organic Farming Scheme': {
-                states: 'SK,UK,HP,AR',
-                link: 'https://pgsindia-ncof.gov.in/'
-            },
-            'Fisheries Development Scheme': {
-                states: 'KL,WB,OR,TN',
-                link: 'https://fisheries.gov.in/'
-            },
-            'Soil Health Card Scheme': {
-                states: 'ALL',
-                link: 'https://soilhealth.dac.gov.in/'
-            },
-            'PM Kisan Samman Nidhi': {
-                states: 'ALL',
-                link: 'https://pmkisan.gov.in/'
-            },
-            'Agricultural Infrastructure Fund': {
-                states: 'ALL',
-                link: 'https://agriinfra.dac.gov.in/'
-            },
-            'Pradhan Mantri Fasal Bima Yojana': {
-                states: 'ALL',
-                link: 'https://pmfby.gov.in/'
             }
+          
         };
 
-       
+        const loanImages = {
+            'Kisan Credit Card (KCC) Scheme': 'https://th.bing.com/th/id/OIP.-sDimYpCBiOXC5y4RtIwwAHaEK?rs=1&pid=ImgDetMain',
+            'Agriculture Gold Loan': 'https://th.bing.com/th/id/OIP.4xxICzUM50m3R5VYMRITuQHaD-?rs=1&pid=ImgDetMain',
+            'Agriculture Marketing Infrastructure': 'https://th.bing.com/th/id/OIP.efA95hh7V8YEpfbCHrIbSQHaEK?rs=1&pid=ImgDetMain',
+            'Dairy Entrepreneurship Development Scheme': 'https://th.bing.com/th/id/OIP.l24Tcg8kZBa9C1UMB1ZgWQHaEK?rs=1&pid=ImgDetMainhttps://kipfinancial.com/wp-content/uploads/2022/10/National-Livestock-Mission-Subsidy-Scheme.png',
+            'National Livestock Mission': 'https://kipfinancial.com/wp-content/uploads/2022/10/National-Livestock-Mission-Subsidy-Scheme.png',
+            'Agri-Clinics and Agri-Business Centres': 'https://th.bing.com/th/id/OIP.szWKesIQkPVKtbfaCFtQNQHaEK?rs=1&pid=ImgDetMain',
+            'Interest Subsidy Scheme': 'https://jupiter.money/blog/wp-content/uploads/2022/07/6.-Guide_to_subsidy.jpg',
+            'Pashu Bhagya Scheme': 'https://images.unsplash.com/photo-1500595046743-cd271d694d30',
+            'Mahabank Kisan Credit Card': 'https://images.unsplash.com/photo-1574943320219-553eb213f72d',
+            'Farm Mechanization Scheme': 'https://th.bing.com/th/id/OIP.YHupMdnpgh1pg5cFIZBT_wHaIS?rs=1&pid=ImgDetMain',
+            'Micro Irrigation Fund Scheme':'https://th.bing.com/th/id/R.4cd8e01c1365a785b9cdda5b01db3371?rik=aC%2fLzRlhxr521A&pid=ImgRaw&r=0'
+            
+        };
+
         const loansGrid = document.querySelector('.loans-grid');
         loansGrid.innerHTML = ''; 
 
@@ -602,22 +590,18 @@
             card.className = 'loan-card';
             card.setAttribute('data-states', details.states);
 
-            const stateTag = document.createElement('span');
-            stateTag.className = 'state-tag';
-            stateTag.textContent = details.states === 'ALL' ? 'All States' : 
-                details.states.split(',').length + ' States';
+            const imageUrl = loanImages[name] || 'https://images.unsplash.com/photo-1495107334309-fcf20504a5ab';
+            
+            card.innerHTML = `
+                <img src="${imageUrl}" alt="${name}" class="loan-image">
+                <div class="loan-content">
+                    <span class="state-tag">${details.states === 'ALL' ? 'All States' : 
+                        details.states.split(',').length + ' States'}</span>
+                    <h3>${name}</h3>
+                    <a href="${details.link}" target="_blank">Learn More →</a>
+                </div>
+            `;
 
-            const title = document.createElement('h3');
-            title.textContent = name;
-
-            const link = document.createElement('a');
-            link.href = details.link;
-            link.target = '_blank';
-            link.textContent = 'Apply Now →';
-
-            card.appendChild(stateTag);
-            card.appendChild(title);
-            card.appendChild(link);
             loansGrid.appendChild(card);
         });
 
